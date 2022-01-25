@@ -1,0 +1,14 @@
+.our-bg-color{
+    background-color: #3C952E4D;
+}
+
+.cart_num{
+   border-radius: 50%;
+    position: relative;
+    top: -10px;
+    left: -10px;
+    background-color: #3C952E4D;
+    padding: 4px;
+    font-size: small;
+    color: white;
+}
