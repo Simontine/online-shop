@@ -9,6 +9,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { ProductsComponent } from './components/products/products.component';
 import { ProductDescriptionComponent } from './components/product-description/product-description.component';
 import { ListProductsComponent } from './components/list-products/list-products.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -18,11 +20,13 @@ import { ListProductsComponent } from './components/list-products/list-products.
     RegisterComponent,
     ProductsComponent,
     ProductDescriptionComponent,
-    ListProductsComponent
+    ListProductsComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
