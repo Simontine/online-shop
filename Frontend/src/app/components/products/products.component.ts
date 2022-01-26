@@ -71,21 +71,8 @@ export class ProductsComponent implements OnInit {
 
   //addedToCart
   addToCart(product: any) {
-    let producsts: any = [
-      
-      {
-        id: 11,
-        price: 'R1O.0uuuu0',
-        shortDescription: ' Lorem ipsum dolor 1',
-        longDescription:
-          ' Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis! 1',
-        name: 'lorem ipsun dolor 1',
-        category: 'fjskfjs fsdkfjsdj 1',
-      },
-     
-    ];
 
-    this.productInCart = producsts;
+    //this.productInCart = producsts;
 
     this.productInCart.push(product);
     console.log(this.productInCart)
