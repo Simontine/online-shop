@@ -1,2 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap-icons/font/bootstrap-icons.css";
+
+.cust-btn{
+    background: #f3cec2;;
+}
+
+.cust-text{
+    color: #f3cec2;
+}
+
+.bg-cust-light{
+    background: #f3cec227;
+}
+
+.our-bg-color{
+    background: #f3cec2;
+}

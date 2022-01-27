@@ -1,49 +1,92 @@
 <!-- Shop-->
+<div class="mb-5 text-white">.</div>
 
-<div class="row mt-5 mx-auto">
-  <div class="col-sm-4 mx-auto p-1">
-    <div class="h-100">
-      <div class="fw-bold fs-4 text-center">Categories</div>
+<div class="mb-1 text-white">.</div>
+
+<div class="container-fluid row mt-5 mx-auto mt-5 m-0 px-5">
+  <div class="col-sm-4 mx-auto p-1 pt-0">
+    <div class="h-100 bg-cust-light">
+      <div class="fw-bold fs-4 text-center our-bg-color rounded py-2">Categories</div>
+      <div class="bg-cust-light"></div>
     </div>
   </div>
 
   <!--Inner Col-->
   <div class="col-sm-8 row mx-auto mx-sm-0 m-0 p-0">
-    <div class="ms-2">
-      <div class="input-group py-2" style="width: 300px">
-        <label class="input-group-text" for="inputGroupSelect01">Sort by</label>
-        <select class="form-select" id="inputGroupSelect01">
-          <option selected>Choose...</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
+    <div class="px-4 mb-2">
+      <div class="bg-cust-light">
+        <div class="input-group px-3 py-2" style="max-width: 250px">
+          <label class="input-group-text" for="inputGroupSelect01">Sort by</label>
+          <select class="form-select" id="inputGroupSelect01">
+            <option selected>Choose...</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
       </div>
     </div>
 
     <!--Inner Grid-->
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 mx-auto p-0">
-      <div *ngFor="let product of products" class="col p-2">
-        <div class="card border-0 p-3">
+      <div *ngFor="let product of products" class="col px-4">
+        <div class="card border-0  shadow-sm mb-5 bg-body rounded our-bg-color">
           <img
-            src="../assets/images/pexels-markus-spiske-369267.jpg"
+            src="{{product.category}}"
             class="img-responsive"
             alt="..."
           />
-          <div class="card-body px-0">
+          <div class="card-body px-3">
             <p class="my-1 d-flex justify-content-between fs-4 text-dark">
-              <i class="bi bi-heart-fill" (click)="addToWishList()"></i>
-              <i class="bi bi-info-circle-fill" (click)="viewMore()"></i>
-            </p>
-
-            <p class="my-1">{{ product.name }}</p>
-            <p class="my-1 d-flex justify-content-between">
-              <span class="fs-4">{{ product.price }}</span
-              ><i
-                class="bi bi-cart-fill fs-4 text-dark"
-                (click)="addToCart(product)"
+              name
+              
+              <i
+                role="button"
+                class="cust-text bi bi-info-circle-fill"
+                (click)="viewMore(product)"
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop"
               ></i>
             </p>
+            <!-- Modal -->
+            <div
+              class="modal fade"
+              id="staticBackdrop"
+              data-bs-backdrop="static"
+              data-bs-keyboard="false"
+              tabindex="-1"
+              aria-labelledby="staticBackdropLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    {{ updateViewMore.name }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /** Modal -->
+
+            <p class="my-1">{{ product.name }}</p>
+     
+            <div class="my-1 d-flex justify-content-between">
+              <span class="fs-4">{{ product.price }}</span>
+              <p>
+                <i role="button" class="cust-text bi bi-heart-fill fs-4" (click)="addToWishList()"></i><i role="button"
+                class="cust-text bi bi-cart-fill fs-4 ms-2"
+                (click)="addToCart(product)"
+              ></i>
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -53,3 +96,4 @@
   <!-- /** Inner Col-->
 </div>
 <!-- /** End Of Shop-->
+

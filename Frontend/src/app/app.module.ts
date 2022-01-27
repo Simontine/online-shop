@@ -12,6 +12,7 @@ import { ProductDescriptionComponent } from './components/product-description/pr
 import { ListProductsComponent } from './components/list-products/list-products.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ToastrModule } from 'ngx-toastr';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
 
 @NgModule({
   declarations: [
@@ -23,13 +24,14 @@ import { ToastrModule } from 'ngx-toastr';
     ProductDescriptionComponent,
     ListProductsComponent,
     CheckoutComponent,
+    LandingPageComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      timeOut: 5000,
+      timeOut: 750,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),

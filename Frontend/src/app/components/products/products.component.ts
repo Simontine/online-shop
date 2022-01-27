@@ -17,7 +17,7 @@ export class ProductsComponent implements OnInit {
       longDescription:
         ' Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis 2',
       name: 'lorem ipsun dolor 2',
-      category: 'fjskfjs fsdkfjsdj 2',
+      category: '../../../assets/p3.jpg',
     },
     {
       id: 1,
@@ -26,7 +26,7 @@ export class ProductsComponent implements OnInit {
       longDescription:
         ' Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis! 1',
       name: 'lorem ipsun dolor 1',
-      category: 'fjskfjs fsdkfjsdj 1',
+      category: '../../../assets/p4.jpg',
     },
     {
       id: 4,
@@ -35,7 +35,7 @@ export class ProductsComponent implements OnInit {
       longDescription:
         ' Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis! 4',
       name: 'lorem ipsun dolor 4',
-      category: 'fjskfjs fsdkfjsdj 4',
+      category: '../../../assets/p6.jpg',
     },
     {
       id: 3,
@@ -44,7 +44,7 @@ export class ProductsComponent implements OnInit {
       longDescription:
         ' Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis 3',
       name: 'lorem ipsun dolor 3',
-      category: 'fjskfjs fsdkfjsdj 3',
+      category: '../../../assets/p3.jpg',
     },
   ];
 
@@ -54,25 +54,27 @@ export class ProductsComponent implements OnInit {
   constructor(private sharedDataService: SharedDataService, private toastr: ToastrService) {}
 
   ngOnInit(): void {
-    //private sharedDataService: SharedDataService
+  
+    let localProduct: any;
+    localProduct = localStorage.getItem("Products") == null ? [] : localStorage.getItem("Products");
 
-    console.log(this.productInCart);
+    let s = JSON.parse(localProduct)
+    console.log(s);
   }
 
   addToWishList() {
     console.log('Wish list hs been added');
   }
 
-  viewMore() {
-    console.log('View more has been aaded');
+  updateViewMore: any = {}; 
+  viewMore(product: any) {
+    this.updateViewMore = product;
   }
 
   totalInCart: number = 0;
 
   //addedToCart
   addToCart(product: any) {
-
-    //this.productInCart = producsts;
 
     this.productInCart.push(product);
     console.log(this.productInCart)
@@ -101,13 +103,20 @@ export class ProductsComponent implements OnInit {
         product[0].quantity = productGroupedById[p].length;
         products.push(product[0]);
       }
+
+      if (product[0].id == product.id) {
+      //   let y = null ? 0 :  product[0].quantity;
+      product[0].quantity = product[0].quantity + 1;
+      //   products.push(product[0]);
+      }
+
+
     });
 
     console.log('-------Our Cart-----');
-    // console.log(`Total in cart: ${this.totalInCart}`);
-    // console.log(products)
 
     this.showSuccess();
+    localStorage.setItem("Products", JSON.stringify(products));
   
 
     this.sharedDataService.productMessage(products);
@@ -115,6 +124,6 @@ export class ProductsComponent implements OnInit {
   }
 
   showSuccess() {
-    this.toastr.success('Hello world!', 'Toastr fun!');
+    this.toastr.success('Product has been added');
   }
 }
