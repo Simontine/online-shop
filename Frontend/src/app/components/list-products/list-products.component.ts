@@ -13,6 +13,10 @@ export class ListProductsComponent implements OnInit {
   constructor(private sharedDataService: SharedDataService) {}
 
   ngOnInit(): void {
-    this.sharedDataService.message.subscribe((data) => (this.products = data));
+    if(localStorage.getItem('Products')){
+        let localProduct: any = localStorage.getItem('Products');
+        this.products  = JSON.parse(localProduct);;
+    }
+
   }
 }

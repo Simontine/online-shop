@@ -12,16 +12,16 @@ export class ProductsComponent implements OnInit {
   products: product[] = [
     {
       id: 2,
-      price: 'R2O.00',
+      price: 20.00,
       shortDescription: ' Lorem ipsum dolor 2',
       longDescription:
         ' Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis 2',
       name: 'lorem ipsun dolor 2',
-      category: '../../../assets/p3.jpg',
+      category: 'https://i.ibb.co/fNbq6VM/Choc-cream-biscuits.jpg',
     },
     {
       id: 1,
-      price: 'R1O.00',
+      price: 10.00,
       shortDescription: ' Lorem ipsum dolor 1',
       longDescription:
         ' Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis! 1',
@@ -30,7 +30,7 @@ export class ProductsComponent implements OnInit {
     },
     {
       id: 4,
-      price: 'R4O.00',
+      price: 40.00,
       shortDescription: ' Lorem ipsum dolor 4',
       longDescription:
         ' Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis! 4',
@@ -39,7 +39,7 @@ export class ProductsComponent implements OnInit {
     },
     {
       id: 3,
-      price: 'R3O.00',
+      price: 30.00,
       shortDescription: ' Lorem ipsum dolor 3',
       longDescription:
         ' Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis 3',
@@ -49,78 +49,60 @@ export class ProductsComponent implements OnInit {
   ];
 
   productInCart: any = [];
+  cartItem: any = {};
 
-  
-  constructor(private sharedDataService: SharedDataService, private toastr: ToastrService) {}
+  constructor(
+    private sharedDataService: SharedDataService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
-  
-    let localProduct: any;
-    localProduct = localStorage.getItem("Products") == null ? [] : localStorage.getItem("Products");
-
-    let s = JSON.parse(localProduct)
-    console.log(s);
+    if (localStorage.getItem('Products')) {
+      let localProduct: any = localStorage.getItem('Products');
+      this.productInCart = JSON.parse(localProduct);
+    }
   }
 
   addToWishList() {
     console.log('Wish list hs been added');
   }
 
-  updateViewMore: any = {}; 
+  updateViewMore: any = {};
   viewMore(product: any) {
     this.updateViewMore = product;
   }
 
   totalInCart: number = 0;
+  totalPriceInCart: number = 0;
 
-  //addedToCart
-  addToCart(product: any) {
+  addToCart(currentProduct: any) {
+    this.totalInCart++;
 
-    this.productInCart.push(product);
-    console.log(this.productInCart)
-    this.totalInCart = this.productInCart.length;
-
-    //this groups product by id
-    const productGroupedById = this.productInCart.reduce(function (
-      results: any,
-      product: any
-    ) {
-      (results[product.id] = results[product.id] || []).push(product);
-      return results;
-    },
-    {});
-
-    //This store the key and create a new array with based on key
-    console.log(productGroupedById);
-    const productById = Object.keys(productGroupedById);
-
-    let products: any = [];
-
-    productById.forEach((p) => {
-      let product = productGroupedById[p];
-
-      if (product[0]) {
-        product[0].quantity = productGroupedById[p].length;
-        products.push(product[0]);
+    console.log(currentProduct);
+    let matched = false;
+    this.productInCart.forEach((citem: any) => {
+      console.log(this.productInCart);
+      if (citem.id == currentProduct.id) {
+        citem.quantity++;
+        matched = true;
+        citem.subtotal = currentProduct.price * citem.quantity;
+        this.totalPriceInCart += citem.subtotal;
+        this.showSuccess();
       }
-
-      if (product[0].id == product.id) {
-      //   let y = null ? 0 :  product[0].quantity;
-      product[0].quantity = product[0].quantity + 1;
-      //   products.push(product[0]);
-      }
-
-
     });
 
-    console.log('-------Our Cart-----');
+    if (!matched) {
+      this.cartItem = {
+        ...currentProduct,
+        quantity: 1,
+        subtotal: currentProduct.price,
+      };
+      this.totalPriceInCart += currentProduct.price;
+      this.productInCart.push(this.cartItem);
+      this.showSuccess();
+    }
 
-    this.showSuccess();
-    localStorage.setItem("Products", JSON.stringify(products));
-  
-
-    this.sharedDataService.productMessage(products);
-    console.log(this.totalInCart);
+    localStorage.setItem('Products', JSON.stringify(this.productInCart));
   }
 
   showSuccess() {
