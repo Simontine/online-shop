@@ -35,14 +35,14 @@
         >-</span
       >
       <span class="border-top border-bottom px-4 py-2"> {{product.quantity}}</span>
-      <span class="border rounded-end p-2 px-2" style="cursor: pointer">+</span>
+      <span (click)="addToCart(product)" class="border rounded-end p-2 px-2" style="cursor: pointer">+</span>
     </p>
   </div>
 
 
   <div class="col pt-3">
     <p class="mt-3">
-      <button class="btn btn-danger">Remove</button>
+      <button (click)="RemoveItem(i)" class="btn btn-danger">Remove</button>
     </p>
   </div>
   
