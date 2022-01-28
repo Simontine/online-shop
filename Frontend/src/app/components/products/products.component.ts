@@ -13,18 +13,17 @@ export class ProductsComponent implements OnInit {
   products: product[] = [
     {
       id: 2,
-      price: 20.00,
+      price: 20.0,
       shortDescription: ' Lorem ipsum dolor 2',
       longDescription:
         ' Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis 2',
       name: 'lorem ',
-      category: "fsfsd",
+      category: 'fsfsd',
       image: 'https://i.ibb.co/fNbq6VM/Choc-cream-biscuits.jpg',
-
     },
     {
       id: 1,
-      price: 10.00,
+      price: 10.0,
       shortDescription: ' Lorem ipsum dolor 1',
       longDescription:
         ' Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis! 1',
@@ -33,7 +32,7 @@ export class ProductsComponent implements OnInit {
     },
     {
       id: 4,
-      price: 40.00,
+      price: 40.0,
       shortDescription: ' Lorem ipsum dolor 4',
       longDescription:
         ' Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis! 4',
@@ -42,7 +41,7 @@ export class ProductsComponent implements OnInit {
     },
     {
       id: 3,
-      price: 30.00,
+      price: 30.0,
       shortDescription: ' Lorem ipsum dolor 3',
       longDescription:
         ' Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis 3',
@@ -54,7 +53,9 @@ export class ProductsComponent implements OnInit {
   productInCart: any = [];
   cartItem: any = {};
 
- 
+  totalPriceInCart: number = 0;
+  totalInCart: number = 0;
+
   constructor(
     private sharedDataService: SharedDataService,
     private toastr: ToastrService
@@ -64,6 +65,12 @@ export class ProductsComponent implements OnInit {
     if (localStorage.getItem('Products')) {
       let localProduct: any = localStorage.getItem('Products');
       this.productInCart = JSON.parse(localProduct);
+
+      this.productInCart.forEach((data: any) => {
+        this.totalInCart += data.quantity;
+        console.log(this.totalInCart);
+      });
+      this.sharedDataService.changeMessage(this.totalInCart);
     }
   }
 
@@ -76,13 +83,10 @@ export class ProductsComponent implements OnInit {
     this.updateViewMore = product;
   }
 
-  totalInCart: number = 0;
-  totalPriceInCart: number = 0;
-
   addToCart(currentProduct: any) {
     this.totalInCart++;
 
-    console.log(this.totalInCart)
+    console.log(this.totalInCart);
     this.sharedDataService.changeMessage(this.totalInCart);
 
     console.log(currentProduct);

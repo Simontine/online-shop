@@ -21,7 +21,13 @@ export class ListProductsComponent implements OnInit {
   ngOnInit(): void {
     if (localStorage.getItem('Products')) {
       let localProduct: any = localStorage.getItem('Products');
-      this.products = JSON.parse(localProduct);;
+      this.products = JSON.parse(localProduct);
+
+      this.products.forEach((data: any) => {
+        this.totalInCart += data.quantity;
+        console.log(this.totalInCart);
+      });
+      this.sharedDataService.changeMessage(this.totalInCart);
     }
 
   }
