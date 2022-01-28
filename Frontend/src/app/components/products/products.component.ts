@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { product } from 'src/app/models/product.model';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 
@@ -51,6 +52,7 @@ export class ProductsComponent implements OnInit {
   productInCart: any = [];
   cartItem: any = {};
 
+ 
   constructor(
     private sharedDataService: SharedDataService,
     private toastr: ToastrService
@@ -77,6 +79,9 @@ export class ProductsComponent implements OnInit {
 
   addToCart(currentProduct: any) {
     this.totalInCart++;
+
+    console.log(this.totalInCart)
+    this.sharedDataService.changeMessage(this.totalInCart);
 
     console.log(currentProduct);
     let matched = false;

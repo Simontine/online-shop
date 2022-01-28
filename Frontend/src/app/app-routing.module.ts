@@ -14,6 +14,7 @@ const routes: Routes = [
   {path: "listproducts", component: ListProductsComponent},
   {path: "checkout", component: CheckoutComponent},
   {path: "home", component: LandingPageComponent},
+  { path: '',   redirectTo: '/home', pathMatch: 'full' }
   
 ];
 

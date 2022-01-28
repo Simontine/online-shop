@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit {
   constructor(private sharedDataService: SharedDataService) { }
 
   ngOnInit(): void {
-    this.sharedDataService.message.subscribe(data => this.totalInCart = data.length);
+    this.sharedDataService.currentMessage.subscribe(data => this.totalInCart = data.length);
   }
 
 }
