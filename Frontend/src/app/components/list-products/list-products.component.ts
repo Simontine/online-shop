@@ -19,4 +19,7 @@ export class ListProductsComponent implements OnInit {
     }
 
   }
+  RemoveItem(index: any){
+    this.products.slice()
+  }
 }
