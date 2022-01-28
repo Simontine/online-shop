@@ -6,6 +6,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class SharedDataService {
 
+ 
   public editDataDetails: any = 0;
   public subject = new Subject<any>();
 
