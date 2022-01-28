@@ -17,7 +17,7 @@ export class ProductsComponent implements OnInit {
       shortDescription: ' Lorem ipsum dolor 2',
       longDescription:
         ' Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis 2',
-      name: 'lorem ipsun dolor 2',
+      name: 'lorem ',
       category: "fsfsd",
       image: 'https://i.ibb.co/fNbq6VM/Choc-cream-biscuits.jpg',
 

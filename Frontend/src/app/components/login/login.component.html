@@ -1,5 +1,5 @@
-<div class="align-items-center h-100">
-  <form class="mx-auto bg-light mt-5 p-2" style="width: 400px">
+<div class="align-items-center mt-5 p-2 h-100">
+  <form class="mx-auto  bg-light mt-5 p-2" style="width: 400px">
     <p class="text-center">
       <i class="bi bi-person-fill fs-1 text-center"></i>
     </p>
@@ -7,32 +7,34 @@
       <label class="visually-hidden" for="autoSizingInputGroup">Email</label>
       <div class="input-group">
         <i class="bi bi-envelope-fill fs-4 px-2 border rounded-start"></i>
-        <input
-          type="text"
-          class="form-control p-2"
-          id="autoSizingInputGroup"
-          placeholder="Email"
-        />
+        <input type="text" class="form-control p-2" id="autoSizingInputGroup" placeholder="Email" />
       </div>
     </div>
+
+
 
     <div class="col-auto m-2 mt-3">
       <label class="visually-hidden" for="autoSizingInputGroup">Email</label>
       <div class="input-group">
         <i class="bi bi-lock-fill fs-4 px-2 border rounded-start"></i>
-        <input
-          type="password"
-          class="form-control p-2"
-          id="autoSizingInputGroup"
-          placeholder="Password"
-        />
+        <input type="password" class="form-control p-2" id="autoSizingInputGroup" placeholder="Password" />
+
+      </div>
+      <div class="text-center">
+        <div class="checkbox fs-8 px-5">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
       </div>
     </div>
 
-    <div class="mx-auto mt-3">
-      <button class="mx-auto btn btn-primary d-block">LOGIN</button>
+    <div class="text-center">
+      <div class="mx-auto mt-3">
+        <button class="mx-auto btn btn-primary d-block">Sign In</button>
+      </div>
+      <p><a href="#" class="text-center mt-3 pb-3 text-secondary">Forgot Password?</a></p>
+      <p> <a routerLink="register" class="text-center mb-3 p-3 text-secondary">Register</a></p>
     </div>
-    <p class="text-center mt-3">Forgot Password?</p>
-    <p class="text-center mb-3 pb-3">Register</p>
   </form>
 </div>

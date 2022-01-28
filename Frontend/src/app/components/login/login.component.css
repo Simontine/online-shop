@@ -1,0 +1,5 @@
+
+.alpha { color: purple; }
+
+
+.beta { color: color("purple"); }

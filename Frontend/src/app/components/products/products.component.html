@@ -80,13 +80,27 @@
                 
                     <!-- /** Modal -->
                 
-                    <p class="my-0 px-3"> {{ updateViewMore.name }}</p>
+                    <p class="my-0 px-3 fs-4">{{ updateViewMore.name }}</p>
                 
                     <div class="my-0 d-flex justify-content-between px-3">
-                      <span class="fs-4"> {{ updateViewMore.category }}</span>
+                      <span> {{ updateViewMore.longDescription }}</span>
                     </div>
                   </div>
-                
+                  <div class="my-1 d-flex justify-content-between px-3">
+                    <span class="fs-4"><span>R </span>{{ updateViewMore.price }}<span>.00</span></span>
+                    <p>
+                      <i
+                        role="button"
+                        class="cust-text bi bi-heart-fill fs-4"
+                        (click)="addToWishList()"
+                      ></i
+                      ><i
+                        role="button"
+                        class="cust-text bi bi-cart-fill fs-4 ms-2"
+                        (click)="addToCart(product)"
+                      ></i>
+                    </p>
+                  </div>
                 <!---->
                   </div>
                 </div>
@@ -97,7 +111,7 @@
             <p class="my-1">{{ product.name }}</p>
 
             <div class="my-1 d-flex justify-content-between">
-              <span class="fs-4">{{ product.price }}</span>
+              <span class="fs-4"><span>R </span>{{ product.price }}<span>.00</span></span>
               <p>
                 <i
                   role="button"
@@ -111,6 +125,7 @@
                 ></i>
               </p>
             </div>
+
           </div>
         </div>
       </div>
