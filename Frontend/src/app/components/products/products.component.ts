@@ -75,7 +75,7 @@ export class ProductsComponent implements OnInit {
         this.totalInCart += data.quantity;
         console.log(this.totalInCart);
       });
-      this.sharedDataService.changeMessage(this.totalInCart);
+      this.sharedDataService.changeMessage(this.productInCart.length);
     }
 
     this.ps.getAllProducts().subscribe((data) => {
@@ -97,7 +97,7 @@ export class ProductsComponent implements OnInit {
   addToCart(currentProduct: any) {
     this.totalInCart++;
 
-    this.sharedDataService.changeMessage(this.totalInCart);
+    //this.sharedDataService.changeMessage(this.totalInCart);
 
   
     let matched = false;
@@ -123,6 +123,7 @@ export class ProductsComponent implements OnInit {
       this.showSuccess();
     }
 
+    this.sharedDataService.changeMessage(this.productInCart.length);
     localStorage.setItem('Products', JSON.stringify(this.productInCart));
   }
 

@@ -42,7 +42,7 @@ export class ListProductsComponent implements OnInit {
       this.totalInCart += data.quantity;
       console.log(this.totalInCart);
     });
-    this.sharedDataService.changeMessage(this.totalInCart);
+    this.sharedDataService.changeMessage(this.products.length);
   }
 
   showSuccess() {
@@ -53,8 +53,7 @@ export class ListProductsComponent implements OnInit {
     this.totalInCart++;
 
     console.log(this.totalInCart);
-    this.sharedDataService.changeMessage(this.totalInCart);
-
+    
     console.log(currentProduct);
     //let matched = false;
     this.products.forEach((citem: any) => {
@@ -67,23 +66,25 @@ export class ListProductsComponent implements OnInit {
         this.showSuccess();
       }
     });
-
+    
     this.showSuccess();
+    this.sharedDataService.changeMessage(this.products.length);
     localStorage.setItem('Products', JSON.stringify(this.products));
   }
 
   minus(currentProduct: any) {
-    this.totalInCart--;
-
-    console.log(this.totalInCart);
-    this.sharedDataService.changeMessage(this.totalInCart);
+ 
 
     console.log(currentProduct);
     //let matched = false;
     this.products.forEach((citem: any) => {
       console.log(this.productInCart);
       if (citem.product_id == currentProduct.product_id) {
-        citem.quantity--;
+        
+        if(citem.quantity >= 2){
+
+          citem.quantity--;
+        }
         // matched = true;
         citem.subtotal = currentProduct.price * citem.quantity;
         this.totalPriceInCart -= citem.subtotal;
@@ -92,6 +93,7 @@ export class ListProductsComponent implements OnInit {
     });
   }
 
+  
   showMinusSuccess() {
     this.toastr.success('Product has been removed');
   }

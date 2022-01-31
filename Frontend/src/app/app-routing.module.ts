@@ -17,6 +17,7 @@ const routes: Routes = [
   {path: "checkout", component: CheckoutComponent},
   {path: "home", component: LandingPageComponent},
   { path: '',   redirectTo: '/shop', pathMatch: 'full' }
+
   
 ];
 

@@ -414,6 +414,8 @@ textarea.input {
   padding-top: 10px;
   padding-bottom: 10px;
   background-color: #1E1F29;
+  margin-top: 0;
+  padding: 1rem;
 }
 
 .header-links li {

@@ -28,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     CheckoutComponent,
     LandingPageComponent,
     FooterComponent,
+    
   ],
   imports: [
     BrowserModule,
