@@ -25,17 +25,26 @@ export class ListProductsComponent implements OnInit {
       let localProduct: any = localStorage.getItem('Products');
       this.products = JSON.parse(localProduct);
 
-      this.products.forEach((data: any) => {
-        this.totalInCart += data.quantity;
-        console.log(this.totalInCart);
-      });
-      this.sharedDataService.changeMessage(this.totalInCart);
+      this.calculateTotal();
     }
   }
+
   RemoveItem(index: any) {
     this.products.splice(index, 1);
+    console.log(this.products);
+    this.totalInCart = 0;
     localStorage.setItem('Products', JSON.stringify(this.products));
+    this.calculateTotal();
   }
+
+  calculateTotal() {
+    this.products.forEach((data: any) => {
+      this.totalInCart += data.quantity;
+      console.log(this.totalInCart);
+    });
+    this.sharedDataService.changeMessage(this.totalInCart);
+  }
+
   showSuccess() {
     this.toastr.success('Product has been added');
   }
@@ -82,7 +91,7 @@ export class ListProductsComponent implements OnInit {
       }
     });
   }
-  
+
   showMinusSuccess() {
     this.toastr.success('Product has been removed');
   }
