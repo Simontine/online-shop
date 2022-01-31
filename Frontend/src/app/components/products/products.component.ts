@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { product } from 'src/app/models/product.model';
+import { ProductService } from 'src/app/services/product.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 
 @Component({
@@ -28,7 +30,8 @@ export class ProductsComponent implements OnInit {
       longDescription:
         ' Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis! 1',
       name: 'lorem ipsun dolor 1',
-      category: '../../../assets/p4.jpg',
+      category: 'https://i.ibb.co/fNbq6VM/Choc-cream-biscuits.jpg',
+      image: 'https://i.ibb.co/fNbq6VM/Choc-cream-biscuits.jpg',
     },
     {
       id: 4,
@@ -37,7 +40,7 @@ export class ProductsComponent implements OnInit {
       longDescription:
         ' Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis! 4',
       name: 'lorem ipsun dolor 4',
-      category: '../../../assets/p6.jpg',
+      category: 'https://i.ibb.co/fNbq6VM/Choc-cream-biscuits.jpg',
     },
     {
       id: 3,
@@ -46,7 +49,7 @@ export class ProductsComponent implements OnInit {
       longDescription:
         ' Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis 3',
       name: 'lorem ipsun dolor 3',
-      category: '../../../assets/p3.jpg',
+      category: 'https://i.ibb.co/fNbq6VM/Choc-cream-biscuits.jpg',
     },
   ];
 
@@ -58,7 +61,9 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private sharedDataService: SharedDataService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router,
+    private ps: ProductService
   ) {}
 
   ngOnInit(): void {
@@ -72,6 +77,10 @@ export class ProductsComponent implements OnInit {
       });
       this.sharedDataService.changeMessage(this.totalInCart);
     }
+
+    this.ps.getAllProducts().subscribe((data) => {
+      this.products = data;
+    });
   }
 
   addToWishList() {
@@ -80,20 +89,21 @@ export class ProductsComponent implements OnInit {
 
   updateViewMore: any = {};
   viewMore(product: any) {
+    this.sharedDataService.productModel(product);
     this.updateViewMore = product;
+    this.router.navigate(['/productdescription']);
   }
 
   addToCart(currentProduct: any) {
     this.totalInCart++;
 
-    console.log(this.totalInCart);
     this.sharedDataService.changeMessage(this.totalInCart);
 
-    console.log(currentProduct);
+  
     let matched = false;
     this.productInCart.forEach((citem: any) => {
-      console.log(this.productInCart);
-      if (citem.id == currentProduct.id) {
+      if (citem.product_id == currentProduct.product_id) {
+        console.log(citem);
         citem.quantity++;
         matched = true;
         citem.subtotal = currentProduct.price * citem.quantity;

@@ -13,6 +13,8 @@ import { ListProductsComponent } from './components/list-products/list-products.
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ToastrModule } from 'ngx-toastr';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,11 +27,13 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
     ListProductsComponent,
     CheckoutComponent,
     LandingPageComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     ToastrModule.forRoot({
       timeOut: 750,
       positionClass: 'toast-bottom-right',

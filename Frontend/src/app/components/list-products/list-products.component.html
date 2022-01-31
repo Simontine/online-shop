@@ -11,7 +11,7 @@
       <div class="d-flex">
         <img
        style="max-height: 100px"
-        src="{{product.category}}"
+        src="{{product.image}}"
         class="img-responsive"
         alt="..."
       />
@@ -31,7 +31,7 @@
     <p class="fw-bold" *ngIf="i == 0">Quantity</p>
     <p class="mt-3">
       
-      <span class="border rounded-start p-2 px-2" style="cursor: pointer"
+      <span (click)="minus(product)" class="border rounded-start p-2 px-2" style="cursor: pointer"
         >-</span
       >
       <span class="border-top border-bottom px-4 py-2"> {{product.quantity}}</span>

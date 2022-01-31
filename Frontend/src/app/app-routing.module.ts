@@ -4,6 +4,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { ListProductsComponent } from './components/list-products/list-products.component';
 import { LoginComponent } from './components/login/login.component';
+import { ProductDescriptionComponent } from './components/product-description/product-description.component';
 import { ProductsComponent } from './components/products/products.component';
 import { RegisterComponent } from './components/register/register.component';
 
@@ -12,9 +13,10 @@ const routes: Routes = [
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},
   {path: "listproducts", component: ListProductsComponent},
+  {path: "productdescription", component: ProductDescriptionComponent},
   {path: "checkout", component: CheckoutComponent},
   {path: "home", component: LandingPageComponent},
-  { path: '',   redirectTo: '/home', pathMatch: 'full' }
+  { path: '',   redirectTo: '/shop', pathMatch: 'full' }
   
 ];
 

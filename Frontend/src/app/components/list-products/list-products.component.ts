@@ -15,8 +15,10 @@ export class ListProductsComponent implements OnInit {
   totalInCart: number = 0;
   totalPriceInCart: number = 0;
 
-
-  constructor(private sharedDataService: SharedDataService, private toastr: ToastrService) { }
+  constructor(
+    private sharedDataService: SharedDataService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     if (localStorage.getItem('Products')) {
@@ -29,7 +31,6 @@ export class ListProductsComponent implements OnInit {
       });
       this.sharedDataService.changeMessage(this.totalInCart);
     }
-
   }
   RemoveItem(index: any) {
     this.products.splice(index, 1);
@@ -42,14 +43,14 @@ export class ListProductsComponent implements OnInit {
   addToCart(currentProduct: any) {
     this.totalInCart++;
 
-    console.log(this.totalInCart)
+    console.log(this.totalInCart);
     this.sharedDataService.changeMessage(this.totalInCart);
 
     console.log(currentProduct);
     //let matched = false;
     this.products.forEach((citem: any) => {
       console.log(this.productInCart);
-      if (citem.id == currentProduct.id) {
+      if (citem.product_id == currentProduct.product_id) {
         citem.quantity++;
         // matched = true;
         citem.subtotal = currentProduct.price * citem.quantity;
@@ -58,17 +59,31 @@ export class ListProductsComponent implements OnInit {
       }
     });
 
-    /*     if (!matched) {
-          this.cartItem = {
-            ...currentProduct,
-            quantity: 1,
-            subtotal: currentProduct.price,
-          };
-          this.totalPriceInCart += currentProduct.price;
-          this.productInCart.push(this.cartItem); */
     this.showSuccess();
-    localStorage.setItem('Products', JSON.stringify(this.products))
+    localStorage.setItem('Products', JSON.stringify(this.products));
   }
 
+  minus(currentProduct: any) {
+    this.totalInCart--;
 
+    console.log(this.totalInCart);
+    this.sharedDataService.changeMessage(this.totalInCart);
+
+    console.log(currentProduct);
+    //let matched = false;
+    this.products.forEach((citem: any) => {
+      console.log(this.productInCart);
+      if (citem.product_id == currentProduct.product_id) {
+        citem.quantity--;
+        // matched = true;
+        citem.subtotal = currentProduct.price * citem.quantity;
+        this.totalPriceInCart -= citem.subtotal;
+        this.showMinusSuccess();
+      }
+    });
+  }
+  
+  showMinusSuccess() {
+    this.toastr.success('Product has been removed');
+  }
 }
