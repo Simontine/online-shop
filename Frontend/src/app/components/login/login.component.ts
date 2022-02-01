@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { LoginService } from 'src/app/services/login.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +12,51 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private ps: LoginService, private toastr: ToastrService, private router:Router, private formbulder:FormBuilder) { }
 
+  
   ngOnInit(): void {
+    
+
+  }
+  loginForm = this.formbulder.group({
+    email: ["", [Validators.required, Validators.email]],
+    password:["", [Validators.required,Validators.minLength(6)]],
+    remember: [""]
+  });
+
+  get email() { return this.loginForm.get('email'); }
+
+  get password() { return this.loginForm.get('password'); }
+
+  login(){
+    console.log("login");
+    var data=this.loginForm.value;
+    this.ps.login(data).subscribe((res) => {
+      if (res == null){
+        this.router.navigate(['/register']);
+        return this.toastr.error("somthing went wrong");
+      }
+     var myobject:any={
+       token:"",user:{}
+     };
+     myobject=res;
+     if (myobject){
+        localStorage.setItem("auth-token",myobject.token); 
+        this.showSuccess();  
+        return this.router.navigate(['/home']);
+      }
+      return this.toastr.error("somthing went wrong");
+    }, err => {
+    console.log(err.error.message)
+      this.toastr.error(err.error.message);
+    });
   }
 
+  error(msg:any){
+    this.toastr.error(msg.message,msg.status);
+  }
+  showSuccess() {
+    this.toastr.success('successful login');
+  }
 }
