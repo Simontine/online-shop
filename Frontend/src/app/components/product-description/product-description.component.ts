@@ -13,6 +13,7 @@ export class ProductDescriptionComponent implements OnInit {
   cartItem: any = {};
   totalInCart: number = 0;
   totalPriceInCart: number = 0;
+  totalItems: number = 0;
 
   constructor(
     private sharedDataService: SharedDataService,
@@ -25,6 +26,14 @@ export class ProductDescriptionComponent implements OnInit {
     this.sharedDataService.currentProduct.subscribe(
       (data) => (this.product = data)
     );
+
+    if (localStorage.getItem('Products')) {
+      let localProduct: any = localStorage.getItem('Products');
+      this.products = JSON.parse(localProduct);
+
+      this.calculateTotal();
+    }
+
     console.log(this.product);
   }
 
@@ -39,6 +48,10 @@ export class ProductDescriptionComponent implements OnInit {
   calculateTotal() {
     this.products.forEach((data: any) => {
       this.totalInCart += data.quantity;
+
+      
+      this.totalPriceInCart += data.subtotal;
+      this.totalItems = this.products.length;
       console.log(this.totalInCart);
     });
     this.sharedDataService.changeMessage(this.totalInCart);
@@ -53,6 +66,7 @@ export class ProductDescriptionComponent implements OnInit {
   }
 
   addToCart(currentProduct: any) {
+    console.log(currentProduct)
     this.totalInCart++;
 
     console.log(this.totalInCart);
