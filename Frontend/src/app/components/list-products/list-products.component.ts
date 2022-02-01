@@ -9,11 +9,13 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./list-products.component.css'],
 })
 export class ListProductsComponent implements OnInit {
-  products: product[] = [];
+  products: any[] = [];
   productInCart: any = [];
   cartItem: any = {};
   totalInCart: number = 0;
   totalPriceInCart: number = 0;
+  totalQuantity: number = 0;
+  totalItems: number = 0;
 
   constructor(
     private sharedDataService: SharedDataService,
@@ -27,6 +29,8 @@ export class ListProductsComponent implements OnInit {
 
       this.calculateTotal();
     }
+
+
   }
 
   RemoveItem(index: any) {
@@ -34,12 +38,20 @@ export class ListProductsComponent implements OnInit {
     console.log(this.products);
     this.totalInCart = 0;
     localStorage.setItem('Products', JSON.stringify(this.products));
+    this.showRemoved();
     this.calculateTotal();
   }
 
+  showRemoved() {
+    this.toastr.success('Product has been removed');
+  }
+
   calculateTotal() {
+    let num = 0;
     this.products.forEach((data: any) => {
       this.totalInCart += data.quantity;
+      this.totalPriceInCart += data.subtotal;
+      this.totalItems = this.products.length;
       console.log(this.totalInCart);
     });
     this.sharedDataService.changeMessage(this.products.length);
@@ -74,7 +86,6 @@ export class ListProductsComponent implements OnInit {
 
   minus(currentProduct: any) {
  
-
     console.log(currentProduct);
     //let matched = false;
     this.products.forEach((citem: any) => {
