@@ -15,6 +15,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BackButtonComponent } from './components/back-button/back-button.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
     CheckoutComponent,
     LandingPageComponent,
     FooterComponent,
+    BackButtonComponent,
     
   ],
   imports: [
