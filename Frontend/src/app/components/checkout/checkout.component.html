@@ -19,6 +19,17 @@
                 formControlName="firstname"
               />
             </div>
+            <div
+              *ngIf="
+                firstname!.invalid && (firstname!.dirty || firstname!.touched)
+              "
+              class="alert alert-danger"
+            >
+              <div *ngIf="firstname!.errors?.['required']">
+                *First Name is required.
+              </div>
+            </div>
+
             <div class="form-group">
               <input
                 class="input"
@@ -27,6 +38,17 @@
                 placeholder="Last Name"
               />
             </div>
+            <div
+              *ngIf="
+                lastname!.invalid && (lastname!.dirty || lastname!.touched)
+              "
+              class="alert alert-danger"
+            >
+              <div *ngIf="lastname!.errors?.['required']">
+                *Last Name is required.
+              </div>
+            </div>
+
             <div class="form-group">
               <input
                 class="input"
@@ -35,138 +57,97 @@
                 placeholder="Email"
               />
             </div>
+            <div
+              *ngIf="
+                email!.invalid && (email!.dirty || email!.touched)
+              "
+              class="alert alert-danger"
+            >
+              <div *ngIf="email!.errors?.['required']">
+                *Email is required.
+              </div>
+            </div>
+
             <div class="form-group">
               <input
                 class="input"
                 type="text"
                 name="address"
                 placeholder="Address"
+                formControlName="address"
               />
             </div>
-            <div class="form-group">
-              <input class="input" type="text" name="city" placeholder="City" formControlName="city"/>
+            <div
+              *ngIf="
+                address!.invalid && (address!.dirty || address!.touched)
+              "
+              class="alert alert-danger"
+            >
+              <div *ngIf="address!.errors?.['required']">
+                First Name is required.
+              </div>
             </div>
-            <div class="form-group">
-              <input class="input" type="text" placeholder="Province" formControlName="provide"/>
-            </div>
+
             <div class="form-group">
               <input
                 class="input"
                 type="text"
-                name="zip-code"
-                placeholder="ZIP Code"
+                name="city"
+                placeholder="City"
+                formControlName="city"
               />
             </div>
+            <div
+            *ngIf="
+              city!.invalid && (city!.dirty || city!.touched)
+            "
+            class="alert alert-danger"
+          >
+            <div *ngIf="city!.errors?.['required']">
+              *City is required.
+            </div>
+          </div>
+
             <div class="form-group">
-              <input class="input" type="text" placeholder="Phone Number" formControlName="phoneNumber"/>
+              <input
+                class="input"
+                type="text"
+                placeholder="Province"
+                formControlName="province"
+              />
             </div>
+            <div
+            *ngIf="
+              province!.invalid && (province!.dirty || province!.touched)
+            "
+            class="alert alert-danger"
+          >
+            <div *ngIf="province!.errors?.['required']">
+              *Province is required.
+            </div>
+          </div>
+
+            <div class="form-group">
+              <input
+                class="input"
+                type="text"
+                placeholder="Phone Number"
+                formControlName="phoneNumber"
+              />
+            </div>
+            <div
+            *ngIf="
+              phoneNumber!.invalid && (phoneNumber!.dirty || phoneNumber!.touched)
+            "
+            class="alert alert-danger"
+          >
+            <div *ngIf="phoneNumber!.errors?.['required']">
+              *Phone Number is required.
+            </div>
+          </div>
+
           </form>
-          <div class="form-group">
-            <div class="input-checkbox">
-              <input type="checkbox" id="create-account" />
-              <label for="create-account">
-                <span></span>
-                Create Account?
-              </label>
-              <div class="caption">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                  do eiusmod tempor incididunt.
-                </p>
-                <input
-                  class="input"
-                  type="password"
-                  name="password"
-                  placeholder="Enter Your Password"
-                  formControlName="password"
-                />
-              </div>
-            </div>
-          </div>
         </div>
-        <!-- /Billing Details -->
-
-        <!-- Shiping Details 
-        <div class="shiping-details">
-          <div class="section-title">
-            <h3 class="title">Shiping address</h3>
-          </div>
-          <div class="input-checkbox">
-            <input type="checkbox" id="shiping-address" />
-            <label for="shiping-address">
-              <span></span>
-              Ship to a diffrent address?
-            </label>
-            <div class="caption">
-              <div class="form-group">
-                <input
-                  class="input"
-                  type="text"
-                  name="first-name"
-                  placeholder="First Name"
-                />
-              </div>
-              <div class="form-group">
-                <input
-                  class="input"
-                  type="text"
-                  name="last-name"
-                  placeholder="Last Name"
-                />
-              </div>
-              <div class="form-group">
-                <input
-                  class="input"
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                />
-              </div>
-              <div class="form-group">
-                <input
-                  class="input"
-                  type="text"
-                  name="address"
-                  placeholder="Address"
-                />
-              </div>
-              <div class="form-group">
-                <input
-                  class="input"
-                  type="text"
-                  name="city"
-                  placeholder="City"
-                />
-              </div>
-              <div class="form-group">
-                <input class="input" type="text" placeholder="Province" />
-              </div>
-              <div class="form-group">
-                <input
-                  class="input"
-                  type="text"
-                  name="zip-code"
-                  placeholder="ZIP Code"
-                />
-              </div>
-              <div class="form-group">
-                <input
-                  class="input"
-                  type="tel"
-                  name="tel"
-                  placeholder="Telephone"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- /Shiping Details -->
-
-        <!-- Order notes -->
-        <div class="order-notes">
-          <textarea class="input" placeholder="Order Notes"></textarea>
-        </div>
-        <!-- /Order notes -->
       </div>
 
       <!-- Order Details -->
@@ -179,14 +160,10 @@
             <div><strong>PRODUCT</strong></div>
             <div><strong>TOTAL</strong></div>
           </div>
-          <div class="order-products">
+          <div *ngFor="let product of productInCart" class="order-products">
             <div class="order-col">
-              <div>1x Product Name Goes Here</div>
-              <div>$980.00</div>
-            </div>
-            <div class="order-col">
-              <div>2x Product Name Goes Here</div>
-              <div>$980.00</div>
+              <div>{{product.quantity}}X {{product.name}}</div>
+              <div>R {{product.subtotal}}.00</div>
             </div>
           </div>
           <div class="order-col">
@@ -195,7 +172,7 @@
           </div>
           <div class="order-col">
             <div><strong>TOTAL</strong></div>
-            <div><strong class="order-total">$2940.00</strong></div>
+            <div><strong class="order-total">{{totalInCart}}</strong></div>
           </div>
         </div>
         <div class="payment-method">
@@ -248,8 +225,10 @@
         </div>
         <button
           type="submit"
+          [disabled]="!checkoutForm.valid"
           (click)="form()"
           class="primary-btn order-submit w-100"
+          [ngClass]="{ 'btn-disabled': !checkoutForm.valid }"
         >
           Place order
         </button>
