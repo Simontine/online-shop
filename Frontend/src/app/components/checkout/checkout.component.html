@@ -1,0 +1,247 @@
+<!-- SECTION -->
+<div class="section mt-5">
+  <!-- container -->
+  <div class="container">
+    <!-- row -->
+    <div class="row" [formGroup]="checkoutForm">
+      <div class="col-md-7">
+        <!-- Billing Details -->
+        <div class="billing-details">
+          <div class="section-title">
+            <h3 class="title">Billing address</h3>
+          </div>
+          <form>
+            <div class="form-group">
+              <input
+                class="input"
+                type="text"
+                placeholder="First Name"
+                formControlName="firstname"
+              />
+            </div>
+            <div
+              *ngIf="
+                firstname!.invalid && (firstname!.dirty || firstname!.touched)
+              "
+              class="alert alert-danger"
+            >
+              <div *ngIf="firstname!.errors?.['required']">
+                *First Name is required.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <input
+                class="input"
+                type="text"
+                formControlName="lastname"
+                placeholder="Last Name"
+              />
+            </div>
+            <div
+              *ngIf="
+                lastname!.invalid && (lastname!.dirty || lastname!.touched)
+              "
+              class="alert alert-danger"
+            >
+              <div *ngIf="lastname!.errors?.['required']">
+                *Last Name is required.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <input
+                class="input"
+                type="email"
+                formControlName="email"
+                placeholder="Email"
+              />
+            </div>
+            <div
+              *ngIf="email!.invalid && (email!.dirty || email!.touched)"
+              class="alert alert-danger"
+            >
+              <div *ngIf="email!.errors?.['required']">*Email is required.</div>
+            </div>
+            <div formGroupName="address">
+              <div class="form-group">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="Province"
+                  formControlName="province"
+                />
+              </div>
+              <div
+                *ngIf="
+                  province?.invalid && (province!.dirty || province!.touched)
+                "
+                class="alert alert-danger"
+              >
+                <div *ngIf="province!.errors?.['required']">
+                  *Province is required.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="Street"
+                  formControlName="street"
+                />
+              </div>
+              <div
+                *ngIf="street?.invalid && (street!.dirty || street!.touched)"
+                class="alert alert-danger"
+              >
+                <div *ngIf="street!.errors?.['required']">
+                  *Street is required.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="City"
+                  formControlName="city"
+                />
+              </div>
+              <div
+                *ngIf="city?.invalid && (city!.dirty || city!.touched)"
+                class="alert alert-danger"
+              >
+                <div *ngIf="city!.errors?.['required']">*City is required.</div>
+              </div>
+
+              <div class="form-group">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="Surburb"
+                  formControlName="surburb"
+                />
+              </div>
+              <div
+                *ngIf="
+                  surburb?.invalid && (surburb!.dirty || surburb!.touched)
+                "
+                class="alert alert-danger"
+              >
+                <div *ngIf="surburb!.errors?.['required']">
+                  *Surburb is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <input
+                class="input"
+                type="text"
+                placeholder="Phone Number"
+                formControlName="phoneNumber"
+              />
+            </div>
+            <div
+              *ngIf="
+                phoneNumber!.invalid &&
+                (phoneNumber!.dirty || phoneNumber!.touched)
+              "
+              class="alert alert-danger"
+            >
+              <div *ngIf="phoneNumber!.errors?.['required']">
+                *Phone Number is required.
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Order Details -->
+      <div class="col-md-5 order-details">
+        <div class="section-title text-center">
+          <h3 class="title">Your Order</h3>
+        </div>
+        <div class="order-summary">
+          <div class="order-col">
+            <div><strong>PRODUCT</strong></div>
+            <div><strong>TOTAL</strong></div>
+          </div>
+          <div *ngFor="let product of productInCart" class="order-products">
+            <div class="order-col">
+              <div>{{ product.quantity }}X {{ product.name }}</div>
+              <div>R {{ product.subtotal }}.00</div>
+            </div>
+          </div>
+          <div class="order-col">
+            <div>Shiping</div>
+            <div><strong>FREE</strong></div>
+          </div>
+          <div class="order-col">
+            <div><strong>TOTAL</strong></div>
+            <div>
+              <strong class="order-total">R {{ totalInCart }}.00</strong>
+            </div>
+          </div>
+        </div>
+        <div class="payment-method">
+          <div>
+            <input
+              type="radio"
+              formControlName="payment_method"
+              name="payment_method"
+              value="direct bank transer"
+              class="mr-2"
+            />
+            <label for="payment-1">
+              <span></span>
+              Direct Bank Transfer
+            </label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              formControlName="payment_method"
+              name="payment_method"
+              value="Cheque Payment"
+              class="mr-2"
+            />
+            <label for="payment-2 mx-2">
+              <span></span>
+              Cheque Payment
+            </label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              formControlName="payment_method"
+              name="payment_method"
+              value="Cash"
+              class="mr-2"
+            />
+            <label for="payment-3">
+              <span></span>
+              Cash
+            </label>
+          </div>
+        </div>
+      
+       
+        <button
+          type="submit"
+          [disabled]="!checkoutForm.valid"
+          (click)="checkoutSubmit()"
+          class="primary-btn order-submit w-100"
+          [ngClass]="{ 'btn-disabled': !checkoutForm.valid }"
+        >
+          Place order
+        </button>
+      </div>
+      <!-- /Order Details -->
+    </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+</div>
+<!-- /SECTION -->
