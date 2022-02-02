@@ -90,16 +90,17 @@ export class ListProductsComponent implements OnInit {
       if (citem.product_id == currentProduct.product_id) {
         if (citem.quantity >= 2) {
           citem.quantity--;
-        }
-        // matched = true;
+          // matched = true;
         citem.subtotal = currentProduct.price * citem.quantity;
         this.totalPriceInCart -= citem.subtotal;
         this.showMinusSuccess();
+        }
+        
       }
     });
   }
 
   showMinusSuccess() {
-    this.toastr.success('Product has been removed');
+    this.toastr.success('Product has been subtracted');
   }
 }

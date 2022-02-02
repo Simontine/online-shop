@@ -7,16 +7,22 @@ import { LoginComponent } from './components/login/login.component';
 import { ProductDescriptionComponent } from './components/product-description/product-description.component';
 import { ProductsComponent } from './components/products/products.component';
 import { RegisterComponent } from './components/register/register.component';
-
+import { 
+  AuthGuardService as AuthGuard 
+} from './services/auth-guard.service';
 const routes: Routes = [
   {path: "shop", component: ProductsComponent},
   {path: "login", component: LoginComponent},
-  {path: "register", component: RegisterComponent},
-  {path: "listproducts", component: ListProductsComponent},
+  //{path: "register", component: RegisterComponent},
+  //{path: "listproducts", component: ListProductsComponent},
   {path: "productdescription", component: ProductDescriptionComponent},
   {path: "checkout", component: CheckoutComponent},
   {path: "home", component: LandingPageComponent},
-  { path: '',   redirectTo: '/shop', pathMatch: 'full' }
+  { 
+    path: 'listproducts', 
+    component: ListProductsComponent, 
+  },
+  {path: '',   redirectTo: '/login', pathMatch: 'full' }
 
   
 ];
