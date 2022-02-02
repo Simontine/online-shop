@@ -7,7 +7,7 @@ const createAccount = async (req, res) => {
 
   if(signup.message) return res.status(400).send(signup.message); 
  
-  const { token, refreshToken, myuser , address } = signup; 
+  const { token, refreshToken, myuser } = signup; 
   
   if (process.env.NODE_ENV !== "test") {
     await mail.signupMail(myuser.email, myuser.lastname);
@@ -21,8 +21,7 @@ const createAccount = async (req, res) => {
   });
   res.status(201).json({
     token,
-    myuser,
-    address
+    myuser
   });
 };
 

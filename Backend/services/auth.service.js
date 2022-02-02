@@ -1,3 +1,4 @@
+require('dotenv').config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const {
@@ -13,9 +14,9 @@ const {
   getUserByEmailDb,
   createUserDb,
 } = require("../db/user.db");
-//const { createCartDb } = require("../db/cart.db"); // temporary fix
+
 const mail = require("./mail.service"); // email 
-require('dotenv').config();
+
 const crypto = require("crypto");
 const moment = require("moment");// date formats
 const { logger } = require("../utils/logger");
@@ -24,11 +25,8 @@ let curDate = moment().format();
 class AuthService {
   async signUp(user) {
     try {
-      const { password, email, lastname, name,cellno ,street,
-        surburb,
-        city,
-        province } = user;
-      if (!email || !password || !lastname || !name || !cellno || !street ||!surburb ||!city ||!province) {
+      const { password, email, lastname, name,cellno  } = user;
+      if (!email || !password || !lastname || !name || !cellno ) {
         throw new ErrorHandler(401, "all fields required");
       }
 
@@ -42,7 +40,7 @@ class AuthService {
         const hashedPassword = await bcrypt.hash(password, salt);  
         
         const userByEmail = await getUserByEmailDb(email);
-        //const userByUsername = await getUserByUsernameDb(username);
+        
         if (userByEmail) {
           const message="email taken already";
           return {message};
@@ -53,9 +51,9 @@ class AuthService {
           password: hashedPassword,
         });
        
-        const {myuser,address}=newUser;
+        const myuser=newUser;
 
-        //const { id: cart_id } = await createCartDb(myuser.user_id);
+      
 
         const token = await this.signToken({
           id: myuser.user_id,
@@ -71,8 +69,7 @@ class AuthService {
         return {
           token,
           refreshToken,
-          myuser,
-          address
+          myuser
         };
       } else {
        
@@ -226,7 +223,7 @@ class AuthService {
     try {
       
       const token= jwt.sign(data,process.env.SECRET,{
-        expiresIn:"20m",
+        expiresIn:"1h",
       });
       return token||null;//jwt.sign(data, process.env.SECRET, { expiresIn: "60s" });
 

@@ -1,26 +1,25 @@
 const orderService = require("../services/order.service");
+const userService = require("../services/user.service");
 //const cartService = require("../services/cart.service");
 
 const createOrder = async (req, res) => {
-  const { totalAmount, paymentMethod, cart } = req.body;
-  const userId = req.user.id; // comes from token verification
-  //const cartId = req.user.cart_id; // EVERY USER HAS THEIR OWN CART
-  
-  //create cart 
-
-
-
+  const { total_amount, payment_method, cart ,address } = req.body;
+  const user_id = req.user.id; // comes from token verification
+ 
   const newOrder = await orderService.createOrder({
     cart,
-    totalAmount,
-    userId,
-    paymentMethod,
+    total_amount,
+    user_id,
+    payment_method,
   });
+  const {province, surburb, street, city}=address;
 
-  // delete all items from cart_items table for the user after order has been processed
-  //await cartService.emptyCart(cartId);
-
-  res.status(201).json(newOrder);
+  const addr= await userService.createUserAddress({
+    province, surburb, street, city, user_id
+  });
+  
+  res.status(201).json(
+    {newOrder,addr});
 };
 
 const getAllOrders = async (req, res) => {

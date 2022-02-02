@@ -5,29 +5,30 @@ const getAllUsersDb = async () => {
   return users;
 };
 
-const createUserDb = async ({ name, password, email, lastname , cellno,province, surburb, street, city}) => {
+const createUserDb = async ({ name, password, email, lastname , cellno}) => {
 
   const usr= await pool.query(
     `INSERT INTO users(name, password, email, lastname, cellno)
      VALUES($1, $2, $3, $4, $5) 
      returning user_id, name, email, lastname, cellno, roles, created_at`,
  [name, password, email, lastname, cellno]);
- 
   const myuser=usr.rows[0];
-
- const adr= await pool.query(
-  `INSERT INTO addresses(province, surburb, street, city, user_id)
-   VALUES($1, $2, $3, $4, $5) 
-   returning address_id,province, surburb, street, city, created_at`,
- [province, surburb, street, city, myuser.user_id]);
-  
- const address=adr.rows[0];
-
- return {myuser,address}
+ return myuser;
 
 };
 
+const createUserAddressDb = ({province, surburb, street, city,user_id})=>{
 
+  const adr= await pool.query(
+    `INSERT INTO addresses(province, surburb, street, city, user_id)
+     VALUES($1, $2, $3, $4, $5) 
+     returning address_id,province, surburb, street, city, created_at`,
+   [province, surburb, street, city,user_id]);
+    
+   const address=adr.rows[0];
+
+   return address;
+};
 
 const getUserByIdDb = async (id) => {
   const { rows: user } = await pool.query(
@@ -49,16 +50,28 @@ const getUserByEmailDb = async (email) => {
   //return user[0];
 };
 
+const updateUserAddressDb = async ({
+  id,
+  street,
+  surburb,
+  city,
+  province,
+  user_id
+})=>{
+  const { rows: adr } = await pool.query(
+    `UPDATE addresses set street = $1, surburb = $2, city = $3 , province= $4
+      where id = $5 AND user_id = $6 returning street, surburb, city, province`,
+    [street,surburb, city, province,id,user_id]
+  );
+  const address= adr[0];
+  return address;
+};
+
 const updateUserDb = async ({
   name,
   email,
   lastname,
-  id,
-  street,
-  surburb,
-  cellno,
-  city,
-  province,
+  id,cellno
 }) => {
   const { rows: user } = await pool.query(
     `UPDATE users set name = $1, email = $2, lastname = $3 , cellno= $4
@@ -66,15 +79,7 @@ const updateUserDb = async ({
     [name, email, lastname, cellno, id]
   );
   const myuser=user[0];
-
-  const { rows: adr } = await pool.query(
-    `UPDATE addresses set street = $1, surburb = $2, city = $3 , province= $4
-      where user_id = $5 returning street, surburb, city, province`,
-    [street,surburb, city, province, myuser.user_id]
-  );
-  const address= adr[0];
-
-  return {myuser,address};
+  return myuser;
 
 };
 
@@ -101,4 +106,6 @@ module.exports = {
   createUserDb,
   deleteUserDb,
   changeUserPasswordDb,
+  createUserAddressDb,
+  updateUserAddressDb
 };
