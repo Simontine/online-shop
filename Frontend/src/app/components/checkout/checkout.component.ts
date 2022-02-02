@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { AuthGuardService } from 'src/app/services/auth-guard.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 
 @Component({
@@ -8,34 +10,43 @@ import { SharedDataService } from 'src/app/services/shared-data.service';
   styleUrls: ['./checkout.component.css'],
 })
 export class CheckoutComponent implements OnInit {
-  constructor(private fb: FormBuilder, private sharedDataService: SharedDataService) {}
+  constructor(
+    private fb: FormBuilder,
+    private sharedDataService: SharedDataService
+  ) {}
 
   productInCart: any;
-  totalInCart: number  = 0;
+  totalInCart: number = 0;
 
+  //populate shipping info if availabe on localstorage or give it empty object
+  shipping_info: any = localStorage.getItem('shippingInfo')
+    ? JSON.parse(localStorage.getItem('shippingInfo'))
+    : {};
 
   ngOnInit(): void {
- 
     if (localStorage.getItem('Products')) {
       let localProduct: any = localStorage.getItem('Products');
       this.productInCart = JSON.parse(localProduct);
 
       this.productInCart.forEach((data: any) => {
         this.totalInCart += data.subtotal;
-        console.log(this.totalInCart);
       });
       this.sharedDataService.changeMessage(this.productInCart.length);
     }
   }
 
   checkoutForm = this.fb.group({
-    firstname: ['', Validators.required],
-    lastname: ['', Validators.required],
-    email: ['', Validators.required],
-    city: ['', Validators.required],
-    province: ['', Validators.required],
-    address: ['', Validators.required],
-    phoneNumber: ['', Validators.required],
+    firstname: [this.shipping_info.firstname, Validators.required],
+    lastname: [this.shipping_info.lastname, Validators.required],
+    email: [this.shipping_info.email, Validators.required],
+    address: this.fb.group({
+      province: [this.shipping_info.address.province, Validators.required],
+      city: [this.shipping_info.address.city, Validators.required],
+      street: [this.shipping_info.address.street, Validators.required],
+      surburb: [this.shipping_info.address.surburb, Validators.required],
+    }),
+    payment_method: [this.shipping_info.payment_method, Validators.required],
+    phoneNumber: [this.shipping_info.phoneNumber, Validators.required],
   });
 
   get firstname() {
@@ -58,19 +69,36 @@ export class CheckoutComponent implements OnInit {
     return this.checkoutForm.get('province');
   }
 
-  get address() {
-    return this.checkoutForm.get('address');
+  get street() {
+    return this.checkoutForm.get('street');
+  }
+
+  get surburb() {
+    return this.checkoutForm.get('surburb');
   }
 
   get phoneNumber() {
     return this.checkoutForm.get('phoneNumber');
   }
 
-  submit() {
-    console.log('Hass been clicked');
-  }
+  checkoutSubmit() {
+   
+    let formShippingInfo = {
+      ...this.checkoutForm.value,
+      cart: this.productInCart,
+      total_amount: this.totalInCart,
+    };
 
-  form() {
-    console.log(this.checkoutForm.value);
+   /* if (this.auth.isAuthenticated) {
+      console.log("has logged in")
+      //service to send order
+      //have to clear localstorage once order completed
+    }else{
+      localStorage.setItem('shippingInfo', JSON.stringify(formShippingInfo));
+      //go back to login
+      localStorage.removeItem("shippingInfo");
+    }*/
+    localStorage.setItem('shippingInfo', JSON.stringify(formShippingInfo));
+
   }
 }

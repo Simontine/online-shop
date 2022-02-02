@@ -3,14 +3,14 @@
   <!-- container -->
   <div class="container">
     <!-- row -->
-    <div class="row">
+    <div class="row" [formGroup]="checkoutForm">
       <div class="col-md-7">
         <!-- Billing Details -->
         <div class="billing-details">
           <div class="section-title">
             <h3 class="title">Billing address</h3>
           </div>
-          <form [formGroup]="checkoutForm" (ngSubmit)="submit()">
+          <form>
             <div class="form-group">
               <input
                 class="input"
@@ -58,74 +58,82 @@
               />
             </div>
             <div
-              *ngIf="
-                email!.invalid && (email!.dirty || email!.touched)
-              "
+              *ngIf="email!.invalid && (email!.dirty || email!.touched)"
               class="alert alert-danger"
             >
-              <div *ngIf="email!.errors?.['required']">
-                *Email is required.
+              <div *ngIf="email!.errors?.['required']">*Email is required.</div>
+            </div>
+            <div formGroupName="address">
+              <div class="form-group">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="Province"
+                  formControlName="province"
+                />
+              </div>
+              <div
+                *ngIf="
+                  province?.invalid && (province!.dirty || province!.touched)
+                "
+                class="alert alert-danger"
+              >
+                <div *ngIf="province!.errors?.['required']">
+                  *Province is required.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="Street"
+                  formControlName="street"
+                />
+              </div>
+              <div
+                *ngIf="street?.invalid && (street!.dirty || street!.touched)"
+                class="alert alert-danger"
+              >
+                <div *ngIf="street!.errors?.['required']">
+                  *Street is required.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="City"
+                  formControlName="city"
+                />
+              </div>
+              <div
+                *ngIf="city?.invalid && (city!.dirty || city!.touched)"
+                class="alert alert-danger"
+              >
+                <div *ngIf="city!.errors?.['required']">*City is required.</div>
+              </div>
+
+              <div class="form-group">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="Surburb"
+                  formControlName="surburb"
+                />
+              </div>
+              <div
+                *ngIf="
+                  surburb?.invalid && (surburb!.dirty || surburb!.touched)
+                "
+                class="alert alert-danger"
+              >
+                <div *ngIf="surburb!.errors?.['required']">
+                  *Surburb is required.
+                </div>
               </div>
             </div>
-
-            <div class="form-group">
-              <input
-                class="input"
-                type="text"
-                name="address"
-                placeholder="Address"
-                formControlName="address"
-              />
-            </div>
-            <div
-              *ngIf="
-                address!.invalid && (address!.dirty || address!.touched)
-              "
-              class="alert alert-danger"
-            >
-              <div *ngIf="address!.errors?.['required']">
-                First Name is required.
-              </div>
-            </div>
-
-            <div class="form-group">
-              <input
-                class="input"
-                type="text"
-                name="city"
-                placeholder="City"
-                formControlName="city"
-              />
-            </div>
-            <div
-            *ngIf="
-              city!.invalid && (city!.dirty || city!.touched)
-            "
-            class="alert alert-danger"
-          >
-            <div *ngIf="city!.errors?.['required']">
-              *City is required.
-            </div>
-          </div>
-
-            <div class="form-group">
-              <input
-                class="input"
-                type="text"
-                placeholder="Province"
-                formControlName="province"
-              />
-            </div>
-            <div
-            *ngIf="
-              province!.invalid && (province!.dirty || province!.touched)
-            "
-            class="alert alert-danger"
-          >
-            <div *ngIf="province!.errors?.['required']">
-              *Province is required.
-            </div>
-          </div>
 
             <div class="form-group">
               <input
@@ -136,16 +144,16 @@
               />
             </div>
             <div
-            *ngIf="
-              phoneNumber!.invalid && (phoneNumber!.dirty || phoneNumber!.touched)
-            "
-            class="alert alert-danger"
-          >
-            <div *ngIf="phoneNumber!.errors?.['required']">
-              *Phone Number is required.
+              *ngIf="
+                phoneNumber!.invalid &&
+                (phoneNumber!.dirty || phoneNumber!.touched)
+              "
+              class="alert alert-danger"
+            >
+              <div *ngIf="phoneNumber!.errors?.['required']">
+                *Phone Number is required.
+              </div>
             </div>
-          </div>
-
           </form>
         </div>
       </div>
@@ -162,8 +170,8 @@
           </div>
           <div *ngFor="let product of productInCart" class="order-products">
             <div class="order-col">
-              <div>{{product.quantity}}X {{product.name}}</div>
-              <div>R {{product.subtotal}}.00</div>
+              <div>{{ product.quantity }}X {{ product.name }}</div>
+              <div>R {{ product.subtotal }}.00</div>
             </div>
           </div>
           <div class="order-col">
@@ -172,61 +180,58 @@
           </div>
           <div class="order-col">
             <div><strong>TOTAL</strong></div>
-            <div><strong class="order-total">{{totalInCart}}</strong></div>
+            <div>
+              <strong class="order-total">R {{ totalInCart }}.00</strong>
+            </div>
           </div>
         </div>
         <div class="payment-method">
-          <div class="input-radio">
-            <input type="radio" name="payment" id="payment-1" />
+          <div>
+            <input
+              type="radio"
+              formControlName="payment_method"
+              name="payment_method"
+              value="direct bank transer"
+              class="mr-2"
+            />
             <label for="payment-1">
               <span></span>
               Direct Bank Transfer
             </label>
-            <div class="caption">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
-            </div>
           </div>
-          <div class="input-radio">
-            <input type="radio" name="payment" id="payment-2" />
-            <label for="payment-2">
+          <div>
+            <input
+              type="radio"
+              formControlName="payment_method"
+              name="payment_method"
+              value="Cheque Payment"
+              class="mr-2"
+            />
+            <label for="payment-2 mx-2">
               <span></span>
               Cheque Payment
             </label>
-            <div class="caption">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
-            </div>
           </div>
-          <div class="input-radio">
-            <input type="radio" name="payment" id="payment-3" />
+          <div>
+            <input
+              type="radio"
+              formControlName="payment_method"
+              name="payment_method"
+              value="Cash"
+              class="mr-2"
+            />
             <label for="payment-3">
               <span></span>
-              Paypal System
+              Cash
             </label>
-            <div class="caption">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
-            </div>
           </div>
         </div>
-        <div class="input-checkbox">
-          <input type="checkbox" id="terms" />
-          <label for="terms">
-            <span></span>
-            I've read and accept the <a href="#">terms & conditions</a>
-          </label>
-        </div>
+      
+       
         <button
           type="submit"
           [disabled]="!checkoutForm.valid"
-          (click)="form()"
+          (click)="checkoutSubmit()"
           class="primary-btn order-submit w-100"
           [ngClass]="{ 'btn-disabled': !checkoutForm.valid }"
         >
