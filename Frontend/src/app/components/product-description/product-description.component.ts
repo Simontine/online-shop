@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 
@@ -21,6 +22,8 @@ export class ProductDescriptionComponent implements OnInit {
   ) {}
 
   product: any = {};
+  qty: any = new FormControl("", Validators.required);
+  
 
   ngOnInit(): void {
     this.sharedDataService.currentProduct.subscribe(
@@ -34,7 +37,8 @@ export class ProductDescriptionComponent implements OnInit {
       this.calculateTotal();
     }
 
-    console.log(this.product);
+    console.log()
+    this.qty.setValue(5)
   }
 
   RemoveItem(index: any) {
@@ -68,8 +72,9 @@ export class ProductDescriptionComponent implements OnInit {
   addToCart(currentProduct: any) {
     console.log(currentProduct)
     this.totalInCart++;
-
-    console.log(this.totalInCart);
+    let num = Number(this.qty.value);
+    this.qty.setValue(++num)
+   
     this.sharedDataService.changeMessage(this.totalInCart);
 
     console.log(currentProduct);
@@ -88,6 +93,10 @@ export class ProductDescriptionComponent implements OnInit {
 
   minus(currentProduct: any) {
     this.totalInCart--;
+
+    let num = Number(this.qty.value);
+    if(this.qty.value > 1)
+    this.qty.setValue(--num)
 
     console.log(this.totalInCart);
     this.sharedDataService.changeMessage(this.totalInCart);
