@@ -30,27 +30,31 @@ export class LoginComponent implements OnInit {
   get password() { return this.loginForm.get('password'); }
 
   login(){
-    console.log("login");
+  
     var data=this.loginForm.value;
-    this.ps.login(data).subscribe((res) => {
-      if (res == null){
-        this.router.navigate(['/register']);
-        return this.toastr.error("somthing went wrong");
-      }
-     var myobject:any={
-       token:"",user:{}
-     };
-     myobject=res;
-     if (myobject){
-        localStorage.setItem("auth-token",myobject.token); 
-        this.showSuccess();  
-        return this.router.navigate(['/home']);
-      }
-      return this.toastr.error("somthing went wrong");
-    }, err => {
-    console.log(err.error.message)
-      this.toastr.error(err.error.message);
-    });
+    this.ps.login(data).subscribe(
+    {
+        next: res => {
+              if (res == null){
+                this.router.navigate(['/register']);
+                return this.toastr.error("somthing went wrong");
+              }
+              var myobject:any={
+                token:"",user:{}
+              };
+              myobject=res;
+              if (myobject){
+                  localStorage.setItem("auth-token",myobject.token); 
+                  this.showSuccess();  
+                  return this.router.navigate(['/home']);
+                }
+                return this.toastr.error("somthing went wrong");
+        },
+        error: err => {
+        
+            this.toastr.error(err.error.message, err.error.status);
+        }
+    })
   }
 
   error(msg:any){
