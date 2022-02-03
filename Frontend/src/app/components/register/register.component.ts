@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
     email: ["", [Validators.required, Validators.email]],
     password:["", [Validators.required,Validators.minLength(6)]],
     name:["", [Validators.required,Validators.minLength(2)]],
-    lastName:["", [Validators.required, Validators.minLength(3)]],
+    lastname:["", [Validators.required, Validators.minLength(3)]],
     cellno:["", [Validators.required, Validators.minLength(10)]]
   });
 
@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
 
   get name() { return this.registerForm.get('name'); }
 
-  get lastName() { return this.registerForm.get('lastName'); }
+  get lastname() { return this.registerForm.get('lastname'); }
   
   get cellno() { return this.registerForm.get('cellno'); }
 
