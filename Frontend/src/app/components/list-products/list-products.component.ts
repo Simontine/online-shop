@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./list-products.component.css'],
 })
 export class ListProductsComponent implements OnInit {
-  products: product[] = [];
+  products: any[] = [];
   productInCart: any = [];
   cartItem: any = {};
   totalInCart: number = 0;
