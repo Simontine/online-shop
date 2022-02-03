@@ -1,8 +1,26 @@
 
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+  <!-- container -->
+  <div class="container">
+    <!-- row -->
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="breadcrumb-tree">
+          <li><a routerLink="/home">Home</a></li>
+          <li><a routerLink="/shop">Shop</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 px-5 mt-3 container mx-auto" *ngFor="let product of products, index as i">
 
   <div class="col pt-3">
-    <p class="fw-bold" *ngIf="i == 0">Description</p>
+    <p class="fw-bold fs-3" *ngIf="i == 0"><strong>Description</strong></p>
     <div class="card border-0">
       <div class="d-flex">
         <img
@@ -17,7 +35,7 @@
   </div>
 
   <div class="col pt-3">
-    <p class="fw-bold" *ngIf="i == 0">Price</p>
+    <p class="fw-bold" *ngIf="i == 0"><strong>Price</strong></p>
     <p class="">
       <span ><span>R </span>{{ product.price }}<span>.00</span></span>
     </p>
@@ -25,14 +43,14 @@
 
 
   <div class="col pt-3">
-    <p class="fw-bold" *ngIf="i == 0">Sub Total</p>
+    <p class="fw-bold" *ngIf="i == 0"><strong>Total</strong> </p>
     <p class="">
       <span ><span>R </span>{{ product.subtotal }}<span>.00</span></span>
     </p>
   </div>
 
   <div class="col pt-3 d-block">
-    <p class="fw-bold" *ngIf="i == 0">Quantity</p>
+    <p class="fw-bold" *ngIf="i == 0"><strong>Quantity</strong></p>
     <p class="">
       <span (click)="minus(product)" class="border rounded-start p-2 px-2" style="cursor: pointer"
         >-</span
@@ -40,9 +58,18 @@
       <span class="border-top border-bottom px-4 py-2"> {{product.quantity}}</span>
       <span (click)="addToCart(product)" class="border rounded-end p-2 px-2" style="cursor: pointer">+</span>
       
-      <button class="ml-3 btn btn-sm bg-danger text-white">delete</button>
+      <button class="ml-3 btn btn-sm bg-danger text-white"  (click)="RemoveItem(product)">delete</button>
     </p>
   </div>
   
 </div>
-
+<div class="container px-5 mt-5 d-flex justify-content-between">
+  <div class="px-2">
+  <p><strong>Total Price: <span>R </span>{{totalPriceInCart}}<span>.00</span></strong></p>
+    <p><strong>Total Items:  {{totalItems}}</strong></p>
+    <p><strong>Total Quantity: {{totalInCart}}</strong></p>
+  </div>
+  <div class="px-5">
+    <a class="btn btn-primary" routerLink="../checkout">Checkout</a>
+  </div>
+</div>

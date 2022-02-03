@@ -14,6 +14,8 @@ export class ListProductsComponent implements OnInit {
   cartItem: any = {};
   totalInCart: number = 0;
   totalPriceInCart: number = 0;
+  totalQuantity: number = 0;
+  totalItems: number = 0;
 
   constructor(
     private sharedDataService: SharedDataService,
@@ -34,15 +36,23 @@ export class ListProductsComponent implements OnInit {
     console.log(this.products);
     this.totalInCart = 0;
     localStorage.setItem('Products', JSON.stringify(this.products));
+    this.showRemoved();
     this.calculateTotal();
   }
 
+  showRemoved() {
+    this.toastr.success('Product has been removed');
+  }
+
   calculateTotal() {
+    let num = 0;
     this.products.forEach((data: any) => {
       this.totalInCart += data.quantity;
+      this.totalPriceInCart += data.subtotal;
+      this.totalItems = this.products.length;
       console.log(this.totalInCart);
     });
-    this.sharedDataService.changeMessage(this.totalInCart);
+    this.sharedDataService.changeMessage(this.products.length);
   }
 
   showSuccess() {
@@ -53,7 +63,6 @@ export class ListProductsComponent implements OnInit {
     this.totalInCart++;
 
     console.log(this.totalInCart);
-    this.sharedDataService.changeMessage(this.totalInCart);
 
     console.log(currentProduct);
     //let matched = false;
@@ -69,30 +78,29 @@ export class ListProductsComponent implements OnInit {
     });
 
     this.showSuccess();
+    this.sharedDataService.changeMessage(this.products.length);
     localStorage.setItem('Products', JSON.stringify(this.products));
   }
 
   minus(currentProduct: any) {
-    this.totalInCart--;
-
-    console.log(this.totalInCart);
-    this.sharedDataService.changeMessage(this.totalInCart);
-
     console.log(currentProduct);
     //let matched = false;
     this.products.forEach((citem: any) => {
       console.log(this.productInCart);
       if (citem.product_id == currentProduct.product_id) {
-        citem.quantity--;
-        // matched = true;
+        if (citem.quantity >= 2) {
+          citem.quantity--;
+          // matched = true;
         citem.subtotal = currentProduct.price * citem.quantity;
         this.totalPriceInCart -= citem.subtotal;
         this.showMinusSuccess();
+        }
+        
       }
     });
   }
 
   showMinusSuccess() {
-    this.toastr.success('Product has been removed');
+    this.toastr.success('Product has been subtracted');
   }
 }

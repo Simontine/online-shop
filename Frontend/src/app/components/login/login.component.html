@@ -1,37 +1,62 @@
 <div class="align-items-center mt-5 p-2 h-100">
-  <form class="mx-auto  bg-light mt-5 p-2" style="width: 400px">
+  <form class="mx-auto  bg-light mt-5 p-2" style="width: 400px"  [formGroup]="loginForm" >
     <p class="text-center">
       <i class="bi bi-person-fill fs-1 text-center"></i>
     </p>
-    <div class="col-auto m-2">
-      <label class="visually-hidden" for="autoSizingInputGroup">Email</label>
+    <div class="col-auto mb-0">
+      <label class="visually-hidden"  for="autoSizingInputGroup" >Email</label>
       <div class="input-group">
         <i class="bi bi-envelope-fill fs-4 px-2 border rounded-start"></i>
-        <input type="text" class="form-control p-2" id="autoSizingInputGroup" placeholder="Email" />
+        <input type="email" class="form-control p-2" id="autoSizingInputGroup" formControlName="email" placeholder="Email" />
       </div>
     </div>
+    <!--validation-->
+    <div *ngIf="email!.invalid && (email!.dirty || email!.touched)"
+    class="text-danger mb-3">
+
+  <div  *ngIf="email!.errors?.['required']">
+    *Email is required.
+  </div>
+  <div *ngIf="email!.errors?.['email']">
+    *Email is invalid
+  </div>
+
+</div>
 
 
 
-    <div class="col-auto m-2 mt-3">
-      <label class="visually-hidden" for="autoSizingInputGroup">Email</label>
+    <div class="col-auto mb-0 mt-3">
+      <label class="visually-hidden" for="autoSizingInputGroup">password</label>
       <div class="input-group">
         <i class="bi bi-lock-fill fs-4 px-2 border rounded-start"></i>
-        <input type="password" class="form-control p-2" id="autoSizingInputGroup" placeholder="Password" />
+        <input type="password" class="form-control p-2" id="autoSizingInputGroup" formControlName="password" placeholder="Password" />
 
       </div>
+
+      <div  class="text-danger" *ngIf="password!.invalid && (password!.dirty || password!.touched)"
+      >
+  
+    <div *ngIf="password!.errors?.['required']">
+      *Password is required.
+    </div>
+    <div *ngIf="password!.errors?.['minlength']">
+      *Password must be at least 6 characters long.
+    </div>
+  
+  </div>
+
       <div class="text-center">
         <div class="checkbox fs-8 px-5">
           <label>
-            <input type="checkbox" value="remember-me"> Remember me
+            <input type="checkbox" value="remember-me" formControlName="remember">  Remember me
           </label>
         </div>
       </div>
     </div>
-
+    
     <div class="text-center">
       <div class="mx-auto mt-3">
-        <button class="mx-auto btn btn-primary d-block">Sign In</button>
+        <button class="mx-auto btn btn-primary d-block" [disabled]="loginForm.invalid" (click)="login()">Sign In</button>
       </div>
       <p><a href="#" class="text-center mt-3 pb-3 text-secondary">Forgot Password?</a></p>
       <p> <a routerLink="register" class="text-center mb-3 p-3 text-secondary">Register</a></p>

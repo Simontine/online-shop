@@ -2,22 +2,22 @@ const pool = require("../config/index");
 
 const createOrderDb = async ({
   cart,
-  totalAmount,
+  total_amount,
   userId,
-  paymentMethod,
+  payment_method,
 }) => {
   // create an order
   const { rows: order } = await pool.query(
-  `INSERT INTO orders(user_id, status, totalAmount, payment_method)
+  `INSERT INTO orders(user_id, status, total_amount, payment_method)
     VALUES($1, 'complete', $2, $3) returning *`,
-    [userId, totalAmount, paymentMethod]
+    [userId, total_amount, payment_method]
   );
   
   var mycart =cart;
    //create order_items
    mycart.forEach(async(item)=>{
       const {product_id,quantity,subtotal}= item;
-     const {rows: order_items }= await pool.query(
+      const result= await pool.query(
       `INSERT INTO order_item(order_id, product_id, quantity, subtotal)
        VALUES($1, $2, $3, $4)
         returning *
@@ -25,7 +25,7 @@ const createOrderDb = async ({
         [order[0].order_id, product_id, quantity, subtotal]
       );
    });
-      const myorder={order:order[0],items:order_items[0]};
+      const myorder={order:order[0],items:cart};
   return myorder;
 };
 

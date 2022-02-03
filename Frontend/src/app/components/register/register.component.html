@@ -1,52 +1,102 @@
-<form class="mx-auto rounded" style="width: 400px">
+<form class="mx-auto rounded" style="width: 400px" [formGroup]="registerForm">
   <p class="text-center">
     <i class="bi bi-person-plus-fill fs-1 text-center"></i>
   </p>
   <div class="mb-3">
     <label class="form-label">Name</label>
-    <input type="text" class="form-control" />
+    <input type="text" class="form-control" formControlName="name" />
     <div class="form-text text-danger">
-      We'll never share your email with anyone else.
+      <!--validation-->
+        <div *ngIf="name!.invalid && (name!.dirty || name!.touched)" class="text-danger mb-3">
+            <div  *ngIf="name!.errors?.['required']">
+              *name is required.
+            </div>
+        </div>
     </div>
   </div>
 
   <div class="mb-3">
     <label class="form-label">Surname</label>
-    <input type="text" class="form-control" />
+    <input type="text" class="form-control" formControlName="lastname" />
     <div class="form-text text-danger">
-      We'll never share your email with anyone else.
+          <!--validation-->
+        <div *ngIf="lastname!.invalid && (lastname!.dirty || lastname!.touched)" class="text-danger mb-3">
+          <div  *ngIf="lastname!.errors?.['required']">
+            *lastname is required.
+          </div>
+        </div>
     </div>
   </div>
 
   <div class="mb-3">
     <label class="form-label">Email</label>
-    <input type="text" class="form-control" />
+    <input type="email" class="form-control" formControlName="email" />
     <div class="form-text text-danger">
-      We'll never share your email with anyone else.
+          <!--validation-->
+          <div *ngIf="email!.invalid && (email!.dirty || email!.touched)" class="text-danger mb-3">
+            <div  *ngIf="email!.errors?.['required']">
+              *Email is required.
+            </div>
+            <div *ngIf="email!.errors?.['email']">
+              *Email is invalid
+            </div>
+          </div>
     </div>
   </div>
 
   <div class="mb-3">
     <label class="form-label">Contact</label>
-    <input type="email" class="form-control" />
+    <input type="cell" class="form-control" formControlName="cellno"/>
     <div class="form-text text-danger">
-      We'll never share your email with anyone else.
+      <!--validation-->
+        <div *ngIf="cellno!.invalid && (cellno!.dirty || cellno!.touched)" class="text-danger mb-3">
+            <div  *ngIf="cellno!.errors?.['required']">
+              *cellno is required.
+            </div>
+            <div *ngIf="cellno!.errors?.['number']">
+              *cellno is invalid
+            </div>
+        </div>
     </div>
   </div>
 
   <div class="mb-3">
     <label class="form-label">Enter Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" />
+    <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password" />
+    <div class="form-text text-danger">
+          <div  class="text-danger" *ngIf="password!.invalid && (password!.dirty || password!.touched)" >
+      
+              <div *ngIf="password!.errors?.['required']">
+                *Password is required.
+              </div>
+              <div *ngIf="password!.errors?.['minlength']">
+                *Password must be at least 6 characters long.
+              </div>
+      
+          </div>
+    </div>
   </div>
 
   <div class="mb-3">
     <label class="form-label">Re-enter Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" />
+    <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password" />
+    <div class="form-text text-danger">
+          <div  class="text-danger" *ngIf="password!.invalid && (password!.dirty || password!.touched)" >
+      
+              <div *ngIf="password!.errors?.['required']">
+                *Password is required.
+              </div>
+              <div *ngIf="password!.errors?.['minlength']">
+                *Password must be at least 6 characters long.
+              </div>
+  
+          </div>
+    </div>
   </div>
 
-  <button type="submit" class="btn btn-primary">REGISTER</button>
+  <button type="submit" class="btn btn-primary" (click)="register()">REGISTER</button>
   <p class="mt-2 text-center">
-    Have Account? <br />
-    Login
+   <a routerLink="/login"> Have Account? <br />
+    Login </a>
   </p>
 </form>

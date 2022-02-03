@@ -14,7 +14,7 @@ import { SharedDataService } from 'src/app/services/shared-data.service';
 export class ProductsComponent implements OnInit {
   products: product[] = [
     {
-      id: 2,
+      product_id: 2,
       price: 20.0,
       shortDescription: ' Lorem ipsum dolor 2',
       longDescription:
@@ -24,7 +24,7 @@ export class ProductsComponent implements OnInit {
       image: 'https://i.ibb.co/fNbq6VM/Choc-cream-biscuits.jpg',
     },
     {
-      id: 1,
+      product_id: 1,
       price: 10.0,
       shortDescription: ' Lorem ipsum dolor 1',
       longDescription:
@@ -34,7 +34,7 @@ export class ProductsComponent implements OnInit {
       image: 'https://i.ibb.co/fNbq6VM/Choc-cream-biscuits.jpg',
     },
     {
-      id: 4,
+      product_id: 4,
       price: 40.0,
       shortDescription: ' Lorem ipsum dolor 4',
       longDescription:
@@ -43,7 +43,7 @@ export class ProductsComponent implements OnInit {
       category: 'https://i.ibb.co/fNbq6VM/Choc-cream-biscuits.jpg',
     },
     {
-      id: 3,
+      product_id: 3,
       price: 30.0,
       shortDescription: ' Lorem ipsum dolor 3',
       longDescription:
@@ -75,7 +75,7 @@ export class ProductsComponent implements OnInit {
         this.totalInCart += data.quantity;
         console.log(this.totalInCart);
       });
-      this.sharedDataService.changeMessage(this.totalInCart);
+      this.sharedDataService.changeMessage(this.productInCart.length);
     }
 
     this.ps.getAllProducts().subscribe((data) => {
@@ -97,7 +97,7 @@ export class ProductsComponent implements OnInit {
   addToCart(currentProduct: any) {
     this.totalInCart++;
 
-    this.sharedDataService.changeMessage(this.totalInCart);
+    //this.sharedDataService.changeMessage(this.totalInCart);
 
   
     let matched = false;
@@ -123,6 +123,7 @@ export class ProductsComponent implements OnInit {
       this.showSuccess();
     }
 
+    this.sharedDataService.changeMessage(this.productInCart.length);
     localStorage.setItem('Products', JSON.stringify(this.productInCart));
   }
 
