@@ -40,6 +40,7 @@ export class ListProductsComponent implements OnInit {
     localStorage.setItem('Products', JSON.stringify(this.products));
     this.showRemoved();
     this.calculateTotal();
+    location.reload();
   }
 
   showRemoved() {
@@ -78,10 +79,13 @@ export class ListProductsComponent implements OnInit {
         this.showSuccess();
       }
     });
+
+
     
     this.showSuccess();
     this.sharedDataService.changeMessage(this.products.length);
     localStorage.setItem('Products', JSON.stringify(this.products));
+    window.location.reload();
   }
 
   minus(currentProduct: any) {
@@ -103,6 +107,10 @@ export class ListProductsComponent implements OnInit {
         
       }
     });
+    window.location.reload();
+    localStorage.setItem('Products', JSON.stringify(this.products));
+
+
   }
 
   
