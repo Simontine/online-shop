@@ -22,15 +22,11 @@
   </div>
 
 </div>
-
-
-
     <div class="col-auto mb-0 mt-3">
       <label class="visually-hidden" for="autoSizingInputGroup">password</label>
       <div class="input-group">
         <i class="bi bi-lock-fill fs-4 px-2 border rounded-start"></i>
         <input type="password" class="form-control p-2" id="autoSizingInputGroup" formControlName="password" placeholder="Password" />
-
       </div>
 
       <div  class="text-danger" *ngIf="password!.invalid && (password!.dirty || password!.touched)"
