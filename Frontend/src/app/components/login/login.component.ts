@@ -30,8 +30,9 @@ export class LoginComponent implements OnInit {
   get password() { return this.loginForm.get('password'); }
 
   login(){
-    console.log("login");
+  
     var data=this.loginForm.value;
+<<<<<<< HEAD
     this.ps.login(data).subscribe((res) => {
       console.log(res)
       if (res == null){
@@ -52,6 +53,31 @@ export class LoginComponent implements OnInit {
     console.log(err.error.message)
       this.toastr.error(err.error.message);
     });
+=======
+    this.ps.login(data).subscribe(
+    {
+        next: res => {
+              if (res == null){
+                this.router.navigate(['/register']);
+                return this.toastr.error("somthing went wrong");
+              }
+              var myobject:any={
+                token:"",user:{}
+              };
+              myobject=res;
+              if (myobject){
+                  localStorage.setItem("auth-token",myobject.token); 
+                  this.showSuccess();  
+                  return this.router.navigate(['/home']);
+                }
+                return this.toastr.error("somthing went wrong");
+        },
+        error: err => {
+        
+            this.toastr.error(err.error.message, err.error.status);
+        }
+    })
+>>>>>>> 74d2a3568a0939d25abf5ac21dc378b4ef1102a5
   }
   error(msg:any){
     this.toastr.error(msg.message,msg.status);

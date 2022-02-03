@@ -24,11 +24,12 @@
     "jquery": "^3.6.0",
     "ngx-toastr": "^14.2.1",
     "rxjs": "~7.4.0",
+    "sweetalert2": "^11.3.10",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~13.1.1",
+    "@angular-devkit/build-angular": "^13.2.1",
     "@angular/cli": "~13.1.1",
     "@angular/compiler-cli": "~13.1.0",
     "@types/jasmine": "~3.10.0",
