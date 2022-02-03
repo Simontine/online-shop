@@ -1,13 +1,11 @@
 const {
   createUserDb,
   getUserByEmailDb,
-  createUserGoogleDb,
   changeUserPasswordDb,
   getUserByIdDb,
   updateUserDb,
   deleteUserDb,
-  getAllUsersDb,
-  getUserByUsernameDb,
+  getAllUsersDb
 } = require("../db/user.db");
 const { ErrorHandler } = require("../helpers/error");
 
@@ -19,6 +17,15 @@ class UserService {
       throw new ErrorHandler(error.statusCode, error.message);
     }
   };
+
+  createUserAddress= async (data)=>{
+    try {
+      return await createUserAddressDb(data);
+    }catch(error) {
+      throw new ErrorHandler(error.statusCode, error.message);
+    }
+  };
+
   getUserByEmail = async (email) => {
     try {
       const user = await getUserByEmailDb(email);
@@ -45,6 +52,7 @@ class UserService {
       throw new ErrorHandler(error.statusCode, error.message);
     }
   };
+  
   updateUser = async (user) => {
     const { email, id } = user;
     const errors = {};
@@ -65,6 +73,31 @@ class UserService {
       }
 
       return await updateUserDb(user);
+    } catch (error) {
+      throw new ErrorHandler(error.statusCode, error.message);
+    }
+  };
+
+  updateUserAddress = async (data) => {
+    const { email, user_id } = data;
+    const errors = {};
+    try {
+      const getUser = await getUserByIdDb(user_id);
+      
+      const findUserByEmail = await getUserByEmailDb(email);
+      
+      const emailChanged =
+        email && getUser.email.toLowerCase() !== email.toLowerCase();
+ 
+      if (!(emailChanged && typeof findUserByEmail === "object")) {
+        errors["email"] = "user doest exist";
+      }
+    
+      if (Object.keys(errors).length > 0) {
+        throw new ErrorHandler(403, errors);
+      }
+
+      return await updateUserAddressDb(data);
     } catch (error) {
       throw new ErrorHandler(error.statusCode, error.message);
     }
