@@ -6,11 +6,15 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginService {
-  baseUrl = 'http://10.10.3.21:8080/api/v1/auth'
+  baseUrl = 'http://localhost:8080/api/v1/auth'
 
   constructor(private http: HttpClient) { }
 
   login(data:any){
+    try{
     return this.http.post(this.baseUrl+'/login',data)
+    }catch(err){
+      return err;
+    }
   }
 }

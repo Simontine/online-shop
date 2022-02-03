@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
     console.log("login");
     var data=this.loginForm.value;
     this.ps.login(data).subscribe((res) => {
+      console.log(res)
       if (res == null){
         this.router.navigate(['/register']);
         return this.toastr.error("somthing went wrong");
@@ -52,7 +53,6 @@ export class LoginComponent implements OnInit {
       this.toastr.error(err.error.message);
     });
   }
-
   error(msg:any){
     this.toastr.error(msg.message,msg.status);
   }
