@@ -20,6 +20,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BackButtonComponent } from './components/back-button/back-button.component';
 import { ProceedComponent } from './components/proceed/proceed.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ProceedComponent } from './components/proceed/proceed.component';
     FooterComponent,
     BackButtonComponent,
     ProceedComponent,
+    SearchComponent,
     
   ],
   imports: [
