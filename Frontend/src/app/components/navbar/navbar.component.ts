@@ -18,4 +18,11 @@ export class NavbarComponent implements OnInit {
     this.sharedDataService.currentMessage.subscribe(data => this.totalInCart = data);
   }
 
+  navbarOpen = false;
+
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
+  }
+
 }
+
