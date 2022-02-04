@@ -1,95 +1,17 @@
-<!-- HEADER -->
-<header>
-  <!-- TOP HEADER -->
-  <div id="top-header">
-    <div class="container">
-      <ul class="header-links pull-left">
-        <li>
-          <a href="#"><i class="fa fa-phone"></i> 071-955-1984</a>
-        </li>
-        <li>
-          <a href="#"><i class="fa fa-envelope-o"></i> email@dadevs.co.za</a>
-        </li>
-        <li>
-          <a href="#"><i class="fa fa-map-marker"></i> 7 Quinci str, Milpark</a>
-        </li>
-      </ul>
-      <ul class="header-links pull-right">
-        <li>
-          <a href="#"><i class="fa fa-zar"></i> ZAR</a>
-        </li>
-        <li>
-          <a routerLink="/login"><i class="fa fa-user-o"></i> My Account</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <!-- /TOP HEADER -->
-
-  <!-- MAIN HEADER -->
-  <div id="header">
-    <!-- container -->
-    <div class="container">
-      <!-- row -->
-      <div class="row">
-        <!-- LOGO -->
-        <div class="col-md-3">
-          <div class="header-logo">
-            <a href="#" class="logo">
-              <img src="./img/logo.png" alt="" />
-            </a>
-          </div>
-        </div>
-        <!-- /LOGO -->
-
-        
-
-        <!-- ACCOUNT -->
-        <div class="col-md-3 clearfix">
-          <div class="header-ctn">
-            
-
-            
-
-            <!-- Menu Toogle -->
-            <div class="menu-toggle">
-              <a href="#">
-                <i class="fa fa-bars"></i>
-                <span>Menu</span>
-              </a>
-            </div>
-            <!-- /Menu Toogle -->
-          </div>
-        </div>
-        <!-- /ACCOUNT -->
-      </div>
-      <!-- row -->
-    </div>
-    <!-- container -->
-  </div>
-  <!-- /MAIN HEADER -->
-</header>
-<!-- /HEADER -->
-
-<!-- NAVIGATION -->
-<nav id="navigation">
-  <!-- container -->
-  <div class="container">
-    <!-- responsive-nav -->
-    <div id="responsive-nav">
-      
-    </div>
-    <!-- /responsive-nav -->
-  </div>
-  <!-- /container -->
-</nav>
-<!-- /NAVIGATION -->
-
 <!-- BREADCRUMB -->
 <div id="breadcrumb" class="section">
   <!-- container -->
   <div class="container">
-    
+    <!-- row -->
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="breadcrumb-tree">
+          <li><a routerLink="/home">Home</a></li>
+          <li><a routerLink="/shop">Shop</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- /row -->
   </div>
   <!-- /container -->
 </div>
@@ -117,7 +39,7 @@
          
           <div>
             <h5 class="product-price mt-3">
-              <span>R </span>{{product.price}}<span>.00</span>
+              <span>R </span>{{product.subtotal}}<span>.00</span>
             </h5>
           </div>
           <p class="mt-5">
@@ -127,11 +49,14 @@
          
           <div class="add-to-cart">
             <div class="qty-label">
-              Qty
-              <div class="input-number">
-                <input type="number"  />{{product.quantity}}
-                <span class="qty-up" (click)="addToCart(product)">+</span>
-                <span class="qty-down" (click)="minus(product)">-</span>
+
+              <div class="">
+                <span (click)="minus(product)" class="btn border rounded-start p-2 px-2" style="cursor: pointer"
+                >-</span
+              >
+              <!--<span class="border-top border-bottom px-4 py-2"> {{product.quantity}}</span>-->
+              <input  class="border-top border-bottom px-4 py-2" [formControl]="qty" type="text">
+              <span (click)="addToCart(product)" class=" btn border rounded-end p-2 px-2" style="cursor: pointer">+</span>
               </div>
             </div>
             <button class="add-to-cart-btn" (click)="addToCart(product)">
