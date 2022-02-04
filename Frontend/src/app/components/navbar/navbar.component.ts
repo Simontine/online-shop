@@ -9,6 +9,7 @@ import { SharedDataService } from 'src/app/services/shared-data.service';
 export class NavbarComponent implements OnInit {
 
   totalInCart: number = 0;
+  wish: number =0;
 
 
   constructor(private sharedDataService: SharedDataService) { }

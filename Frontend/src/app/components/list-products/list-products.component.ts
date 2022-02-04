@@ -16,6 +16,7 @@ export class ListProductsComponent implements OnInit {
   totalPriceInCart: number = 0;
   totalQuantity: number = 0;
   totalItems: number = 0;
+  wish: number = 0;
 
   constructor(
     private sharedDataService: SharedDataService,
