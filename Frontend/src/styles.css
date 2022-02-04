@@ -17,3 +17,8 @@
     background: #B77729;
     color: #391306;
 }
+
+
+.selector-for-some-widget {
+    box-sizing: content-box;
+  }
