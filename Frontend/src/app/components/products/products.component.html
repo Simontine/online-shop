@@ -4,12 +4,17 @@
   <div class="container">
     <!-- row -->
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-6">
         <ul class="breadcrumb-tree text-dark">
+          <li> <app-back-button></app-back-button> </li>
           <li><a class="text-dark" routerLink="/home">Home</a></li>
         </ul>
       </div>
+      <div class="col-md-6">
+        <app-search [products]="products" ></app-search>
+      </div>
     </div>
+   
     <!-- /row -->
   </div>
   <!-- /container -->

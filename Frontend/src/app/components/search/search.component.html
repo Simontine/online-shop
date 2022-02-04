@@ -1,0 +1,14 @@
+<form class="navbar-form navbar-left" role="search" [formGroup]="searchform">
+    <div class="form-group">
+      <input type="text" class="form-control"  formControlName="searchbar" placeholder="Search">
+      <div class="form-text text-danger">
+        <!--validation-->
+          <div *ngIf="searchbar!.invalid && (searchbar!.dirty || searchbar!.touched)" class="text-danger mb-3">
+              <div  *ngIf="searchbar!.errors?.['required']">
+                *searchbar is required.
+              </div>
+          </div>
+      </div>
+    </div>
+    <button type="submit" (click)="search()" class="btn btn-default">Submit</button>
+</form>

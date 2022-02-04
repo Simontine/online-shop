@@ -17,7 +17,7 @@ const createUserDb = async ({ name, password, email, lastname , cellno}) => {
 
 };
 
-const createUserAddressDb = ({province, surburb, street, city,user_id})=>{
+const createUserAddressDb = async ({province, surburb, street, city,user_id})=>{
 
   const adr= await pool.query(
     `INSERT INTO addresses(province, surburb, street, city, user_id)
