@@ -19,6 +19,7 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { FooterComponent } from './components/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BackButtonComponent } from './components/back-button/back-button.component';
+import { ProceedComponent } from './components/proceed/proceed.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { BackButtonComponent } from './components/back-button/back-button.compon
     CheckoutComponent,
     LandingPageComponent,
     FooterComponent,
-    BackButtonComponent
+    BackButtonComponent,
+    ProceedComponent,
     
   ],
   imports: [
