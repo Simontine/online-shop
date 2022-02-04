@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AuthGuardService } from 'src/app/services/auth-guard.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-checkout',
@@ -12,7 +13,8 @@ import { SharedDataService } from 'src/app/services/shared-data.service';
 export class CheckoutComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
-    private sharedDataService: SharedDataService
+    private sharedDataService: SharedDataService,
+    private toastr: ToastrService
   ) {}
 
   productInCart: any;
@@ -40,10 +42,10 @@ export class CheckoutComponent implements OnInit {
     lastname: [this.shipping_info.lastname, Validators.required],
     email: [this.shipping_info.email, Validators.required],
     address: this.fb.group({
-      province: [this.shipping_info.address.province, Validators.required],
-      city: [this.shipping_info.address.city, Validators.required],
-      street: [this.shipping_info.address.street, Validators.required],
-      surburb: [this.shipping_info.address.surburb, Validators.required],
+      province: [this.shipping_info.address?.province, Validators.required],
+      city: [this.shipping_info.address?.city, Validators.required],
+      street: [this.shipping_info.address?.street, Validators.required],
+      surburb: [this.shipping_info.address?.surburb, Validators.required],
     }),
     payment_method: [this.shipping_info.payment_method, Validators.required],
     phoneNumber: [this.shipping_info.phoneNumber, Validators.required],
@@ -98,7 +100,14 @@ export class CheckoutComponent implements OnInit {
       //go back to login
       localStorage.removeItem("shippingInfo");
     }*/
+
+    console.log(formShippingInfo);
+    this.placeOrder();
     localStorage.setItem('shippingInfo', JSON.stringify(formShippingInfo));
 
+  }
+
+  placeOrder() {
+    this.toastr.success('Order has been placed');
   }
 }

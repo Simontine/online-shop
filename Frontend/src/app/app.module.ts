@@ -32,7 +32,7 @@ import { BackButtonComponent } from './components/back-button/back-button.compon
     CheckoutComponent,
     LandingPageComponent,
     FooterComponent,
-    BackButtonComponent,
+    BackButtonComponent
     
   ],
   imports: [
