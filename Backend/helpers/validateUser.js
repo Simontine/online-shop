@@ -14,16 +14,26 @@ const validatefield=(user)=>{
     email: Joi.string().min(5).required().email(),
     lastname:Joi.string().min(2).required(),
     cellno:Joi.string().min(10).max(13).required(),
-    password: Joi.string().min(6).required(),
+    password: Joi.string().min(6).required()
+    
+  });
+  const {error}= Joi.validate(user,schema);
+  return error ? error.details[0].message : null;
+}
+const validateAddress=(address)=>{
+  const schema= Joi.object.keys({
     street:Joi.string().required(),
     surburb:Joi.string().required(),
     city:Joi.string().required(),
     province:Joi.string().required()
   });
-  const {error}= Joi.validate(user,schema);
+  const {error}= Joi.validate(address,schema);
   return error ? error.details[0].message : null;
+
+
 }
 module.exports = {
   validateUser,
-  validatefield
+  validatefield,
+  validateAddress
 };
