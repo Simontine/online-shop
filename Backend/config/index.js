@@ -9,7 +9,7 @@ const database =
     : process.env.PGDATABASE;
 
 //const connectionString = `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${database}`;
-const connectionString = `postgresql://root:12345@localhost:5432/bakery`;
+const connectionString = `postgresql://root:12345@localhost:5433/brownies_shop_db`;
 
 const pool = new Pool({
   connectionString: isProduction

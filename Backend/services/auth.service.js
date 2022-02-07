@@ -220,8 +220,7 @@ class AuthService {
   }
 
   async signToken(data) {
-    try {
-      
+    try {  
       const token= jwt.sign(data,process.env.SECRET,{
         expiresIn:"1h",
       });
